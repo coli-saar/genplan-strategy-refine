@@ -1,0 +1,7 @@
+(pack-first o719)
+(stack o719 o890)
+(stack o890 o358)
+(stack o358 o934)
+(stack o934 o73)
+(stack o73 o531)
+; cost = 6 (unit cost)

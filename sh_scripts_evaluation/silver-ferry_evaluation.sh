@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-ferry --eval_env silver-ferry --config ./eval_configs/eval_config_all.json --out eval_data.json

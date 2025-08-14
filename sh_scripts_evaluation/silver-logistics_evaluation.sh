@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-logistics --eval_env silver-logistics --config ./eval_configs/eval_config_all.json --out eval_data.json

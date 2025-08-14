@@ -1,0 +1,20 @@
+(define (problem heavy-pack-prob)
+	(:domain shopping)
+	(:objects o58 o79 o792 o877)
+
+(:init
+    (shopping-cart-empty)
+    (not-added o58)
+    (not-added o79)
+    (not-added o792)
+    (not-added o877)
+    (cheaper o79 o58)
+    (cheaper o79 o877)
+    (cheaper o79 o792)
+    (cheaper o58 o877)
+    (cheaper o58 o792)
+    (cheaper o877 o792)
+)
+
+(:goal (and (added o58) (added o79) (added o792) (added o877)))
+)

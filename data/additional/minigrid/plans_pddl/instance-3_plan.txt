@@ -1,0 +1,8 @@
+(move p13 p12)
+(pickup p12 key0)
+(move p12 p10)
+(move p10 p11)
+(unlock p11 p9 key0 shape0)
+(move p11 p9)
+(move p9 p8)
+; cost = 7 (unit cost)

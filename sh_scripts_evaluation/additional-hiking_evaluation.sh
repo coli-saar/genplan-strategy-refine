@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-hiking --eval_env additional-hiking --config ./eval_configs/eval_config_all.json --out eval_data.json

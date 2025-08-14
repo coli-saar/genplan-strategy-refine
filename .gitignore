@@ -1,0 +1,8 @@
+utils/set_env.py
+agentic_generalized_planning.egg-info
+*/.DS_Store
+*/__pycache__/
+.idea/
+.DS_Store
+
+

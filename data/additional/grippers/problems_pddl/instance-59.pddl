@@ -1,0 +1,37 @@
+(define (problem gripper-4-35-6)
+(:domain gripper-strips)
+(:objects robot1 robot2 robot3 robot4 - robot
+rgripper1 lgripper1 rgripper2 lgripper2 rgripper3 lgripper3 rgripper4 lgripper4 - gripper
+room1 room2 room3 room4 room5 room6 room7 room8 room9 room10 room11 room12 room13 room14 room15 room16 room17 room18 room19 room20 room21 room22 room23 room24 room25 room26 room27 room28 room29 room30 room31 room32 room33 room34 room35 - room
+ball1 ball2 ball3 ball4 ball5 ball6 - object)
+(:init
+(at-robby robot1 room20)
+(free robot1 rgripper1)
+(free robot1 lgripper1)
+(at-robby robot2 room8)
+(free robot2 rgripper2)
+(free robot2 lgripper2)
+(at-robby robot3 room14)
+(free robot3 rgripper3)
+(free robot3 lgripper3)
+(at-robby robot4 room16)
+(free robot4 rgripper4)
+(free robot4 lgripper4)
+(at ball1 room10)
+(at ball2 room6)
+(at ball3 room20)
+(at ball4 room31)
+(at ball5 room32)
+(at ball6 room9)
+)
+(:goal
+(and
+(at ball1 room1)
+(at ball2 room17)
+(at ball3 room7)
+(at ball4 room22)
+(at ball5 room34)
+(at ball6 room30)
+)
+)
+)

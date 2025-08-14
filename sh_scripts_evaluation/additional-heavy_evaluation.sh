@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-heavy --eval_env additional-heavy --config ./eval_configs/eval_config_all.json --out eval_data.json

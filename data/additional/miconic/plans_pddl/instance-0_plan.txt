@@ -1,0 +1,8 @@
+(board f4_b0 p1_b0)
+(down f4_b0 f0_b0)
+(board f0_b0 p0_b0)
+(up f0_b0 f1_b0)
+(depart f1_b0 p0_b0)
+(up f1_b0 f2_b0)
+(depart f2_b0 p1_b0)
+; cost = 7 (unit cost)

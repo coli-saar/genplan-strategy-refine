@@ -1,0 +1,3 @@
+(walk r3_c2 r3_c1)
+(walk r3_c1 r3_c0)
+; cost = 2 (unit cost)

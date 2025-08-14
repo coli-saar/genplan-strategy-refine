@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-blocksworld --eval_env additional-blocksworld --config ./eval_configs/eval_config_all.json --out eval_data.json

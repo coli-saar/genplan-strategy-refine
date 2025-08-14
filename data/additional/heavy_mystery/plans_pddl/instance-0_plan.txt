@@ -1,0 +1,7 @@
+(action_1 o719)
+(action_2 o719 o890)
+(action_2 o890 o358)
+(action_2 o358 o934)
+(action_2 o934 o73)
+(action_2 o73 o531)
+; cost = 6 (unit cost)

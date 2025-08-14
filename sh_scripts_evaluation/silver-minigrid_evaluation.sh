@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-minigrid --eval_env silver-minigrid --config ./eval_configs/eval_config_all.json --out eval_data.json

@@ -1,0 +1,6 @@
+(move p14 p15)
+(move p15 p16)
+(move p16 p22)
+(move p22 p28)
+(move p28 p34)
+; cost = 5 (unit cost)

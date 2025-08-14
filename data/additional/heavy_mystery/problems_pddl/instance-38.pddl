@@ -1,0 +1,20 @@
+(define (problem puzzle_task)
+	(:domain puzzle)
+	(:objects o525 o579 o722 o846)
+
+(:init
+    (predicate_5)
+    (predicate_3 o525)
+    (predicate_3 o579)
+    (predicate_3 o722)
+    (predicate_3 o846)
+    (predicate_1 o722 o846)
+    (predicate_1 o722 o579)
+    (predicate_1 o722 o525)
+    (predicate_1 o846 o579)
+    (predicate_1 o846 o525)
+    (predicate_1 o579 o525)
+)
+
+(:goal (and (predicate_2 o525) (predicate_2 o579) (predicate_2 o722) (predicate_2 o846)))
+)

@@ -1,0 +1,132 @@
+{
+  "n_val": 6,
+  "n_eval": 25,
+  "validation_tasks": {
+    "instance-0": [
+      "genplan_satellite",
+      "instance-2"
+    ],
+    "instance-1": [
+      "genplan_satellite",
+      "instance-6"
+    ],
+    "instance-2": [
+      "apb_satellite",
+      "instance-7"
+    ],
+    "instance-3": [
+      "apb_satellite",
+      "instance-8"
+    ],
+    "instance-4": [
+      "genplan_satellite",
+      "instance-1"
+    ],
+    "instance-5": [
+      "genplan_satellite",
+      "instance-3"
+    ]
+  },
+  "eval_tasks": {
+    "instance-6": [
+      "apb_satellite",
+      "instance-19"
+    ],
+    "instance-7": [
+      "apb_satellite",
+      "instance-15"
+    ],
+    "instance-8": [
+      "apb_satellite",
+      "instance-23"
+    ],
+    "instance-9": [
+      "apb_satellite",
+      "instance-22"
+    ],
+    "instance-10": [
+      "apb_satellite",
+      "instance-18"
+    ],
+    "instance-11": [
+      "genplan_satellite",
+      "instance-13"
+    ],
+    "instance-12": [
+      "apb_satellite",
+      "instance-25"
+    ],
+    "instance-13": [
+      "apb_satellite",
+      "instance-24"
+    ],
+    "instance-14": [
+      "genplan_satellite",
+      "instance-12"
+    ],
+    "instance-15": [
+      "genplan_satellite",
+      "instance-9"
+    ],
+    "instance-16": [
+      "apb_satellite",
+      "instance-11"
+    ],
+    "instance-17": [
+      "apb_satellite",
+      "instance-10"
+    ],
+    "instance-18": [
+      "apb_satellite",
+      "instance-21"
+    ],
+    "instance-19": [
+      "genplan_satellite",
+      "instance-16"
+    ],
+    "instance-20": [
+      "apb_satellite",
+      "instance-20"
+    ],
+    "instance-21": [
+      "genplan_satellite",
+      "instance-28"
+    ],
+    "instance-22": [
+      "genplan_satellite",
+      "instance-27"
+    ],
+    "instance-23": [
+      "genplan_satellite",
+      "instance-26"
+    ],
+    "instance-24": [
+      "genplan_satellite",
+      "instance-29"
+    ],
+    "instance-25": [
+      "genplan_satellite",
+      "instance-30"
+    ],
+    "instance-26": [
+      "genplan_satellite",
+      "instance-34"
+    ],
+    "instance-27": [
+      "genplan_satellite",
+      "instance-32"
+    ],
+    "instance-28": [
+      "genplan_satellite",
+      "instance-31"
+    ],
+    "instance-29": [
+      "genplan_satellite",
+      "instance-33"
+    ],
+    "instance-30": [
+      "genplan_satellite",
+      "instance-35"
+    ]
+  }
+}

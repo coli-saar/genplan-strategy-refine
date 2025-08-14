@@ -1,0 +1,35 @@
+{
+  "input_version": "pddl",
+  "timeout": 45,
+  "safety_checks": true,
+  "randomize_input_order": true,
+  "n_randomizations": 4,
+
+  "inference_feedback_generator": {
+    "name": "CodeFeedbackGenerator",
+    "args": {"pddl_env_name":  "RawPDDLEnvironment", "pddl_env_args": {}}
+  },
+  "experiments_output_folder": "outputs",
+  "experiments_results_folder": "results",
+  "experiments_names": [
+    "full_3_6",
+    "full_5_3",
+    "baseline",
+    "full_no_code_sr",
+    "full_no_multicode",
+    "full_no_strat_debug"
+  ],
+  "split_file": "seed_splits_eval.json",
+  "eval_split_names": [
+    "split_eval_final"
+  ],
+
+  "val_split_file": "seed_splits.json",
+  "val_split_name": "1-2-4-25",
+
+  "eval_all": true,
+  "eval_best_first": false,
+  "eval_best_last": true,
+  "eval_first": true,
+  "eval_last": false
+}

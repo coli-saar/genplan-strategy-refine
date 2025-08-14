@@ -1,0 +1,25 @@
+{% block prompt -%}
+
+{% if solved_problems %}
+The code you provided me solved the following tasks correctly:
+{% for sp in solved_problems%}
+{{ sp }}
+
+{% endfor %}
+{% else %}
+The code you provided me did not solve any of the tested tasks.
+{% endif %}
+
+The code failed on the following task:
+{{ failed_problem }}
+
+{{ feedback }}
+
+Please help me to understand why this mistake happened.
+Think about
+1) which specific part of the code lead to the mistake and
+2) why this part of the code is not adequate for implementing a correct strategy
+
+Do not provide any revisions yet but enough details to understand why the code does not work for the task without revisions and which specific parts need to be adapted.
+
+{%- endblock prompt %}

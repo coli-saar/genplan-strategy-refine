@@ -1,0 +1,3 @@
+(move p0 p1)
+(move p1 p3)
+; cost = 2 (unit cost)

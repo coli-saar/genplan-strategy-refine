@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-satellite --eval_env additional-satellite --config ./eval_configs/eval_config_all.json --out eval_data.json

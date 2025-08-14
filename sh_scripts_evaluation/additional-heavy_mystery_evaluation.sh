@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-heavy_mystery --eval_env additional-heavy_mystery --config ./eval_configs/eval_config_all.json --out eval_data.json

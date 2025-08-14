@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-rovers --eval_env additional-rovers --config ./eval_configs/eval_config_all.json --out eval_data.json

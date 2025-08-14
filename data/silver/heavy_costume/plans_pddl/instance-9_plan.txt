@@ -1,0 +1,8 @@
+(add-first o338)
+(add-to-prev o338 o891)
+(add-to-prev o891 o761)
+(add-to-prev o761 o264)
+(add-to-prev o264 o328)
+(add-to-prev o328 o504)
+(add-to-prev o504 o392)
+; cost = 7 (unit cost)

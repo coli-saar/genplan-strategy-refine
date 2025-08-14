@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-ferry --eval_env additional-ferry --config ./eval_configs/eval_config_all.json --out eval_data.json

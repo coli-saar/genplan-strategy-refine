@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-spanner --eval_env silver-spanner --config ./eval_configs/eval_config_all.json --out eval_data.json

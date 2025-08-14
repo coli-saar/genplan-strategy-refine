@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-gripper --eval_env silver-gripper --config ./eval_configs/eval_config_all.json --out eval_data.json

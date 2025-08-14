@@ -1,0 +1,1 @@
+python run_evaluation.py --env silver-blocksworld --eval_env silver-blocksworld --config ./eval_configs/eval_config_all.json --out eval_data.json

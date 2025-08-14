@@ -1,0 +1,64 @@
+{
+  "1-2-4-25": {
+    "prompt": [
+      "instance-.pddl",
+      "instance-.pddl"
+      ],
+    "validate": [
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl"
+    ],
+    "eval": [
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl",
+      "instance-.pddl"
+    ]
+  },
+
+  "2-2-4-25": {
+    "prompt": [
+
+      ],
+    "validate": [
+
+    ],
+    "eval": [
+
+    ]
+  },
+  "3-2-4-25": {
+    "prompt": [
+
+      ],
+    "validate": [
+
+    ],
+    "eval": [
+      
+    ]
+  }
+}

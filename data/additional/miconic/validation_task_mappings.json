@@ -1,0 +1,18 @@
+{
+  "old_to_new_mappings": {
+    "instance-0.pddl": "instance-4.pddl",
+    "instance-4.pddl": "instance-5.pddl",
+    "instance-2.pddl": "instance-0.pddl",
+    "instance-6.pddl": "instance-1.pddl",
+    "instance-15.pddl": "instance-2.pddl",
+    "instance-21.pddl": "instance-3.pddl"
+  },
+  "new_to_old_mappings": {
+    "instance-4.pddl": "instance-0.pddl",
+    "instance-5.pddl": "instance-4.pddl",
+    "instance-0.pddl": "instance-2.pddl",
+    "instance-1.pddl": "instance-6.pddl",
+    "instance-2.pddl": "instance-15.pddl",
+    "instance-3.pddl": "instance-21.pddl"
+  }
+}

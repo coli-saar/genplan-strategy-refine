@@ -1,0 +1,144 @@
+{
+  "n_val": 6,
+  "n_eval": 28,
+  "validation_tasks": {
+    "instance-0": [
+      "silver_hiking",
+      "instance-2"
+    ],
+    "instance-1": [
+      "silver_hiking",
+      "instance-11"
+    ],
+    "instance-2": [
+      "silver_hiking",
+      "instance-3"
+    ],
+    "instance-3": [
+      "silver_hiking",
+      "instance-7"
+    ],
+    "instance-4": [
+      "silver_hiking",
+      "instance-1"
+    ],
+    "instance-5": [
+      "silver_hiking",
+      "instance-6"
+    ]
+  },
+  "eval_tasks": {
+    "instance-6": [
+      "silver_hiking",
+      "instance-19"
+    ],
+    "instance-7": [
+      "silver_hiking",
+      "instance-23"
+    ],
+    "instance-8": [
+      "silver_hiking",
+      "instance-14"
+    ],
+    "instance-9": [
+      "silver_hiking",
+      "instance-15"
+    ],
+    "instance-10": [
+      "silver_hiking",
+      "instance-22"
+    ],
+    "instance-11": [
+      "silver_hiking",
+      "instance-0"
+    ],
+    "instance-12": [
+      "silver_hiking",
+      "instance-18"
+    ],
+    "instance-13": [
+      "silver_hiking",
+      "instance-13"
+    ],
+    "instance-14": [
+      "silver_hiking",
+      "instance-29"
+    ],
+    "instance-15": [
+      "silver_hiking",
+      "instance-33"
+    ],
+    "instance-16": [
+      "silver_hiking",
+      "instance-25"
+    ],
+    "instance-17": [
+      "silver_hiking",
+      "instance-24"
+    ],
+    "instance-18": [
+      "silver_hiking",
+      "instance-32"
+    ],
+    "instance-19": [
+      "silver_hiking",
+      "instance-28"
+    ],
+    "instance-20": [
+      "silver_hiking",
+      "instance-12"
+    ],
+    "instance-21": [
+      "silver_hiking",
+      "instance-9"
+    ],
+    "instance-22": [
+      "silver_hiking",
+      "instance-27"
+    ],
+    "instance-23": [
+      "silver_hiking",
+      "instance-5"
+    ],
+    "instance-24": [
+      "silver_hiking",
+      "instance-31"
+    ],
+    "instance-25": [
+      "silver_hiking",
+      "instance-30"
+    ],
+    "instance-26": [
+      "silver_hiking",
+      "instance-4"
+    ],
+    "instance-27": [
+      "silver_hiking",
+      "instance-26"
+    ],
+    "instance-28": [
+      "silver_hiking",
+      "instance-10"
+    ],
+    "instance-29": [
+      "silver_hiking",
+      "instance-8"
+    ],
+    "instance-30": [
+      "silver_hiking",
+      "instance-21"
+    ],
+    "instance-31": [
+      "silver_hiking",
+      "instance-17"
+    ],
+    "instance-32": [
+      "silver_hiking",
+      "instance-16"
+    ],
+    "instance-33": [
+      "silver_hiking",
+      "instance-20"
+    ]
+  }
+}

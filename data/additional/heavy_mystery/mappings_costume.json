@@ -1,0 +1,16 @@
+{
+  "domain": {
+    "heavy-pack": "puzzle"
+  },
+  "actions": {
+    "pack-first": "action_1",
+    "stack": "action_2"
+  },
+  "predicates": {
+    "heavier": "predicate_1",
+    "packed": "predicate_2",
+    "unpacked": "predicate_3",
+    "nothing-above": "predicate_4",
+    "box-empty": "predicate_5"
+  }
+}

@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-spanner --eval_env additional-spanner --config ./eval_configs/eval_config_all.json --out eval_data.json

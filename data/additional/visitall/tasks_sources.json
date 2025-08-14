@@ -1,0 +1,804 @@
+{
+  "n_val": 6,
+  "n_eval": 193,
+  "validation_tasks": {
+    "instance-0": [
+      "genplan_visitall",
+      "instance-4"
+    ],
+    "instance-1": [
+      "genplan_visitall",
+      "instance-6"
+    ],
+    "instance-2": [
+      "apb_visitall",
+      "instance-36"
+    ],
+    "instance-3": [
+      "apb_visitall",
+      "instance-47"
+    ],
+    "instance-4": [
+      "apb_visitall",
+      "instance-1"
+    ],
+    "instance-5": [
+      "genplan_visitall",
+      "instance-0"
+    ]
+  },
+  "eval_tasks": {
+    "instance-6": [
+      "genplan_visitall",
+      "instance-38"
+    ],
+    "instance-7": [
+      "apb_visitall",
+      "instance-23"
+    ],
+    "instance-8": [
+      "genplan_visitall",
+      "instance-43"
+    ],
+    "instance-9": [
+      "genplan_visitall",
+      "instance-42"
+    ],
+    "instance-10": [
+      "genplan_visitall",
+      "instance-18"
+    ],
+    "instance-11": [
+      "apb_visitall",
+      "instance-48"
+    ],
+    "instance-12": [
+      "genplan_visitall",
+      "instance-33"
+    ],
+    "instance-13": [
+      "apb_visitall",
+      "instance-25"
+    ],
+    "instance-14": [
+      "genplan_visitall",
+      "instance-32"
+    ],
+    "instance-15": [
+      "apb_visitall",
+      "instance-49"
+    ],
+    "instance-16": [
+      "apb_visitall",
+      "instance-45"
+    ],
+    "instance-17": [
+      "apb_visitall",
+      "instance-12"
+    ],
+    "instance-18": [
+      "genplan_visitall",
+      "instance-11"
+    ],
+    "instance-19": [
+      "apb_visitall",
+      "instance-50"
+    ],
+    "instance-20": [
+      "genplan_visitall",
+      "instance-17"
+    ],
+    "instance-21": [
+      "apb_visitall",
+      "instance-41"
+    ],
+    "instance-22": [
+      "apb_visitall_scaled",
+      "instance-19"
+    ],
+    "instance-23": [
+      "apb_visitall_scaled",
+      "instance-13"
+    ],
+    "instance-24": [
+      "apb_visitall_scaled",
+      "instance-22"
+    ],
+    "instance-25": [
+      "apb_visitall_scaled",
+      "instance-23"
+    ],
+    "instance-26": [
+      "apb_visitall_scaled",
+      "instance-14"
+    ],
+    "instance-27": [
+      "apb_visitall_scaled",
+      "instance-7"
+    ],
+    "instance-28": [
+      "apb_visitall_scaled",
+      "instance-25"
+    ],
+    "instance-29": [
+      "apb_visitall_scaled",
+      "instance-24"
+    ],
+    "instance-30": [
+      "apb_visitall_scaled",
+      "instance-12"
+    ],
+    "instance-31": [
+      "apb_visitall_scaled",
+      "instance-9"
+    ],
+    "instance-32": [
+      "apb_visitall_scaled",
+      "instance-11"
+    ],
+    "instance-33": [
+      "apb_visitall_scaled",
+      "instance-27"
+    ],
+    "instance-34": [
+      "apb_visitall_scaled",
+      "instance-5"
+    ],
+    "instance-35": [
+      "apb_visitall_scaled",
+      "instance-4"
+    ],
+    "instance-36": [
+      "apb_visitall_scaled",
+      "instance-26"
+    ],
+    "instance-37": [
+      "apb_visitall_scaled",
+      "instance-10"
+    ],
+    "instance-38": [
+      "apb_visitall_scaled",
+      "instance-8"
+    ],
+    "instance-39": [
+      "apb_visitall_scaled",
+      "instance-16"
+    ],
+    "instance-40": [
+      "apb_visitall_scaled",
+      "instance-2"
+    ],
+    "instance-41": [
+      "apb_visitall_scaled",
+      "instance-20"
+    ],
+    "instance-42": [
+      "genplan_visitall",
+      "instance-102"
+    ],
+    "instance-43": [
+      "genplan_visitall",
+      "instance-101"
+    ],
+    "instance-44": [
+      "genplan_visitall",
+      "instance-104"
+    ],
+    "instance-45": [
+      "genplan_visitall",
+      "instance-106"
+    ],
+    "instance-46": [
+      "genplan_visitall",
+      "instance-110"
+    ],
+    "instance-47": [
+      "genplan_visitall",
+      "instance-107"
+    ],
+    "instance-48": [
+      "genplan_visitall",
+      "instance-112"
+    ],
+    "instance-49": [
+      "genplan_visitall",
+      "instance-113"
+    ],
+    "instance-50": [
+      "genplan_visitall",
+      "instance-114"
+    ],
+    "instance-51": [
+      "genplan_visitall",
+      "instance-116"
+    ],
+    "instance-52": [
+      "genplan_visitall",
+      "instance-115"
+    ],
+    "instance-53": [
+      "genplan_visitall",
+      "instance-117"
+    ],
+    "instance-54": [
+      "genplan_visitall",
+      "instance-118"
+    ],
+    "instance-55": [
+      "genplan_visitall",
+      "instance-123"
+    ],
+    "instance-56": [
+      "genplan_visitall",
+      "instance-121"
+    ],
+    "instance-57": [
+      "genplan_visitall",
+      "instance-122"
+    ],
+    "instance-58": [
+      "genplan_visitall",
+      "instance-124"
+    ],
+    "instance-59": [
+      "genplan_visitall",
+      "instance-125"
+    ],
+    "instance-60": [
+      "genplan_visitall",
+      "instance-127"
+    ],
+    "instance-61": [
+      "genplan_visitall",
+      "instance-126"
+    ],
+    "instance-62": [
+      "genplan_visitall",
+      "instance-128"
+    ],
+    "instance-63": [
+      "genplan_visitall",
+      "instance-129"
+    ],
+    "instance-64": [
+      "genplan_visitall",
+      "instance-130"
+    ],
+    "instance-65": [
+      "genplan_visitall",
+      "instance-133"
+    ],
+    "instance-66": [
+      "genplan_visitall",
+      "instance-131"
+    ],
+    "instance-67": [
+      "genplan_visitall",
+      "instance-132"
+    ],
+    "instance-68": [
+      "genplan_visitall",
+      "instance-134"
+    ],
+    "instance-69": [
+      "genplan_visitall",
+      "instance-135"
+    ],
+    "instance-70": [
+      "genplan_visitall",
+      "instance-139"
+    ],
+    "instance-71": [
+      "genplan_visitall",
+      "instance-138"
+    ],
+    "instance-72": [
+      "genplan_visitall",
+      "instance-137"
+    ],
+    "instance-73": [
+      "genplan_visitall",
+      "instance-140"
+    ],
+    "instance-74": [
+      "genplan_visitall",
+      "instance-142"
+    ],
+    "instance-75": [
+      "genplan_visitall",
+      "instance-144"
+    ],
+    "instance-76": [
+      "genplan_visitall",
+      "instance-146"
+    ],
+    "instance-77": [
+      "genplan_visitall",
+      "instance-145"
+    ],
+    "instance-78": [
+      "genplan_visitall",
+      "instance-147"
+    ],
+    "instance-79": [
+      "genplan_visitall",
+      "instance-148"
+    ],
+    "instance-80": [
+      "genplan_visitall",
+      "instance-153"
+    ],
+    "instance-81": [
+      "genplan_visitall",
+      "instance-154"
+    ],
+    "instance-82": [
+      "genplan_visitall",
+      "instance-149"
+    ],
+    "instance-83": [
+      "genplan_visitall",
+      "instance-155"
+    ],
+    "instance-84": [
+      "genplan_visitall",
+      "instance-159"
+    ],
+    "instance-85": [
+      "genplan_visitall",
+      "instance-158"
+    ],
+    "instance-86": [
+      "genplan_visitall",
+      "instance-157"
+    ],
+    "instance-87": [
+      "genplan_visitall",
+      "instance-160"
+    ],
+    "instance-88": [
+      "genplan_visitall",
+      "instance-162"
+    ],
+    "instance-89": [
+      "genplan_visitall",
+      "instance-163"
+    ],
+    "instance-90": [
+      "genplan_visitall",
+      "instance-165"
+    ],
+    "instance-91": [
+      "genplan_visitall",
+      "instance-167"
+    ],
+    "instance-92": [
+      "genplan_visitall",
+      "instance-166"
+    ],
+    "instance-93": [
+      "genplan_visitall",
+      "instance-169"
+    ],
+    "instance-94": [
+      "genplan_visitall",
+      "instance-170"
+    ],
+    "instance-95": [
+      "genplan_visitall",
+      "instance-174"
+    ],
+    "instance-96": [
+      "genplan_visitall",
+      "instance-171"
+    ],
+    "instance-97": [
+      "genplan_visitall",
+      "instance-173"
+    ],
+    "instance-98": [
+      "genplan_visitall",
+      "instance-175"
+    ],
+    "instance-99": [
+      "genplan_visitall",
+      "instance-179"
+    ],
+    "instance-100": [
+      "genplan_visitall",
+      "instance-178"
+    ],
+    "instance-101": [
+      "genplan_visitall",
+      "instance-177"
+    ],
+    "instance-102": [
+      "genplan_visitall",
+      "instance-180"
+    ],
+    "instance-103": [
+      "genplan_visitall",
+      "instance-181"
+    ],
+    "instance-104": [
+      "genplan_visitall",
+      "instance-185"
+    ],
+    "instance-105": [
+      "genplan_visitall",
+      "instance-184"
+    ],
+    "instance-106": [
+      "genplan_visitall",
+      "instance-183"
+    ],
+    "instance-107": [
+      "genplan_visitall",
+      "instance-186"
+    ],
+    "instance-108": [
+      "genplan_visitall",
+      "instance-187"
+    ],
+    "instance-109": [
+      "genplan_visitall",
+      "instance-191"
+    ],
+    "instance-110": [
+      "genplan_visitall",
+      "instance-189"
+    ],
+    "instance-111": [
+      "genplan_visitall",
+      "instance-188"
+    ],
+    "instance-112": [
+      "genplan_visitall",
+      "instance-192"
+    ],
+    "instance-113": [
+      "genplan_visitall",
+      "instance-193"
+    ],
+    "instance-114": [
+      "genplan_visitall",
+      "instance-196"
+    ],
+    "instance-115": [
+      "genplan_visitall",
+      "instance-195"
+    ],
+    "instance-116": [
+      "genplan_visitall",
+      "instance-199"
+    ],
+    "instance-117": [
+      "genplan_visitall",
+      "instance-200"
+    ],
+    "instance-118": [
+      "genplan_visitall",
+      "instance-201"
+    ],
+    "instance-119": [
+      "genplan_visitall",
+      "instance-213"
+    ],
+    "instance-120": [
+      "genplan_visitall",
+      "instance-203"
+    ],
+    "instance-121": [
+      "genplan_visitall",
+      "instance-202"
+    ],
+    "instance-122": [
+      "genplan_visitall",
+      "instance-214"
+    ],
+    "instance-123": [
+      "genplan_visitall",
+      "instance-217"
+    ],
+    "instance-124": [
+      "genplan_visitall",
+      "instance-215"
+    ],
+    "instance-125": [
+      "genplan_visitall",
+      "instance-219"
+    ],
+    "instance-126": [
+      "genplan_visitall",
+      "instance-218"
+    ],
+    "instance-127": [
+      "genplan_visitall",
+      "instance-224"
+    ],
+    "instance-128": [
+      "genplan_visitall",
+      "instance-232"
+    ],
+    "instance-129": [
+      "genplan_visitall",
+      "instance-226"
+    ],
+    "instance-130": [
+      "genplan_visitall",
+      "instance-227"
+    ],
+    "instance-131": [
+      "genplan_visitall",
+      "instance-229"
+    ],
+    "instance-132": [
+      "genplan_visitall",
+      "instance-234"
+    ],
+    "instance-133": [
+      "genplan_visitall",
+      "instance-235"
+    ],
+    "instance-134": [
+      "genplan_visitall",
+      "instance-241"
+    ],
+    "instance-135": [
+      "genplan_visitall",
+      "instance-239"
+    ],
+    "instance-136": [
+      "genplan_visitall",
+      "instance-238"
+    ],
+    "instance-137": [
+      "genplan_visitall",
+      "instance-242"
+    ],
+    "instance-138": [
+      "genplan_visitall",
+      "instance-243"
+    ],
+    "instance-139": [
+      "genplan_visitall",
+      "instance-250"
+    ],
+    "instance-140": [
+      "genplan_visitall",
+      "instance-255"
+    ],
+    "instance-141": [
+      "genplan_visitall",
+      "instance-256"
+    ],
+    "instance-142": [
+      "genplan_visitall",
+      "instance-257"
+    ],
+    "instance-143": [
+      "genplan_visitall",
+      "instance-261"
+    ],
+    "instance-144": [
+      "genplan_visitall",
+      "instance-260"
+    ],
+    "instance-145": [
+      "genplan_visitall",
+      "instance-265"
+    ],
+    "instance-146": [
+      "genplan_visitall",
+      "instance-263"
+    ],
+    "instance-147": [
+      "genplan_visitall",
+      "instance-267"
+    ],
+    "instance-148": [
+      "genplan_visitall",
+      "instance-270"
+    ],
+    "instance-149": [
+      "genplan_visitall",
+      "instance-274"
+    ],
+    "instance-150": [
+      "genplan_visitall",
+      "instance-273"
+    ],
+    "instance-151": [
+      "genplan_visitall",
+      "instance-271"
+    ],
+    "instance-152": [
+      "genplan_visitall",
+      "instance-275"
+    ],
+    "instance-153": [
+      "genplan_visitall",
+      "instance-277"
+    ],
+    "instance-154": [
+      "genplan_visitall",
+      "instance-280"
+    ],
+    "instance-155": [
+      "genplan_visitall",
+      "instance-278"
+    ],
+    "instance-156": [
+      "genplan_visitall",
+      "instance-279"
+    ],
+    "instance-157": [
+      "genplan_visitall",
+      "instance-282"
+    ],
+    "instance-158": [
+      "genplan_visitall",
+      "instance-286"
+    ],
+    "instance-159": [
+      "genplan_visitall",
+      "instance-288"
+    ],
+    "instance-160": [
+      "genplan_visitall",
+      "instance-291"
+    ],
+    "instance-161": [
+      "genplan_visitall",
+      "instance-290"
+    ],
+    "instance-162": [
+      "genplan_visitall",
+      "instance-292"
+    ],
+    "instance-163": [
+      "genplan_visitall",
+      "instance-297"
+    ],
+    "instance-164": [
+      "genplan_visitall",
+      "instance-300"
+    ],
+    "instance-165": [
+      "genplan_visitall",
+      "instance-299"
+    ],
+    "instance-166": [
+      "ipc_visitall11",
+      "instance-5"
+    ],
+    "instance-167": [
+      "ipc_visitall11",
+      "instance-3"
+    ],
+    "instance-168": [
+      "ipc_visitall11",
+      "instance-2"
+    ],
+    "instance-169": [
+      "ipc_visitall11",
+      "instance-1"
+    ],
+    "instance-170": [
+      "ipc_visitall11",
+      "instance-4"
+    ],
+    "instance-171": [
+      "ipc_visitall14",
+      "instance-16"
+    ],
+    "instance-172": [
+      "ipc_visitall11",
+      "instance-6"
+    ],
+    "instance-173": [
+      "ipc_visitall11",
+      "instance-9"
+    ],
+    "instance-174": [
+      "ipc_visitall11",
+      "instance-8"
+    ],
+    "instance-175": [
+      "ipc_visitall11",
+      "instance-10"
+    ],
+    "instance-176": [
+      "ipc_visitall14",
+      "instance-18"
+    ],
+    "instance-177": [
+      "ipc_visitall11",
+      "instance-12"
+    ],
+    "instance-178": [
+      "ipc_visitall11",
+      "instance-13"
+    ],
+    "instance-179": [
+      "ipc_visitall11",
+      "instance-14"
+    ],
+    "instance-180": [
+      "ipc_visitall14",
+      "instance-20"
+    ],
+    "instance-181": [
+      "ipc_visitall11",
+      "instance-16"
+    ],
+    "instance-182": [
+      "ipc_visitall14",
+      "instance-7"
+    ],
+    "instance-183": [
+      "ipc_visitall11",
+      "instance-18"
+    ],
+    "instance-184": [
+      "ipc_visitall11",
+      "instance-19"
+    ],
+    "instance-185": [
+      "ipc_visitall11",
+      "instance-20"
+    ],
+    "instance-186": [
+      "ipc_visitall14",
+      "instance-3"
+    ],
+    "instance-187": [
+      "ipc_visitall14",
+      "instance-4"
+    ],
+    "instance-188": [
+      "ipc_visitall14",
+      "instance-5"
+    ],
+    "instance-189": [
+      "ipc_visitall14",
+      "instance-1"
+    ],
+    "instance-190": [
+      "ipc_visitall14",
+      "instance-2"
+    ],
+    "instance-191": [
+      "ipc_visitall14",
+      "instance-6"
+    ],
+    "instance-192": [
+      "ipc_visitall14",
+      "instance-10"
+    ],
+    "instance-193": [
+      "ipc_visitall14",
+      "instance-9"
+    ],
+    "instance-194": [
+      "ipc_visitall14",
+      "instance-11"
+    ],
+    "instance-195": [
+      "ipc_visitall14",
+      "instance-12"
+    ],
+    "instance-196": [
+      "ipc_visitall14",
+      "instance-13"
+    ],
+    "instance-197": [
+      "ipc_visitall14",
+      "instance-14"
+    ],
+    "instance-198": [
+      "ipc_visitall14",
+      "instance-15"
+    ]
+  }
+}

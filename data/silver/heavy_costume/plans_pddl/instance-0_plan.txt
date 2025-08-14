@@ -1,0 +1,4 @@
+(add-first o997)
+(add-to-prev o997 o404)
+(add-to-prev o404 o570)
+; cost = 3 (unit cost)

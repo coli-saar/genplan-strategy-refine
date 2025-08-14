@@ -1,0 +1,18 @@
+{% block prompt -%}
+
+Now, please provide the adapted version of the python code that fixes the mistake.
+
+You can think step-by-step and include your reasoning for deriving at the adapted code. But at the end of your response, provide only the final python code in the following format:
+
+```python
+from typing import List, Tuple, Set
+def generate_solution(objects: {{ object_type_str }}, init: Set[Tuple], goal: Set[Tuple]) -> List[str]:
+# Your code here
+return solution
+```
+
+Remember:
+Only include the code for the main function and any required helper functions. Do NOT include any examples or actual calls of the function.
+You cannot use any external libraries or modules.
+
+{%- endblock prompt %}

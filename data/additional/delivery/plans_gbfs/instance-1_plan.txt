@@ -1,0 +1,8 @@
+(pick-up paper-0 loc-0)
+(move loc-0 loc-2)
+(deliver paper-0 loc-2)
+(move loc-2 loc-0)
+(pick-up paper-1 loc-0)
+(move loc-0 loc-4)
+(deliver paper-1 loc-4)
+; cost = 7 (unit cost)

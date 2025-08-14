@@ -1,0 +1,168 @@
+{
+  "n_val": 6,
+  "n_eval": 34,
+  "validation_tasks": {
+    "instance-0": [
+      "silver_heavy",
+      "instance-1"
+    ],
+    "instance-1": [
+      "silver_heavy",
+      "instance-5"
+    ],
+    "instance-2": [
+      "silver_heavy",
+      "instance-6"
+    ],
+    "instance-3": [
+      "silver_heavy",
+      "instance-9"
+    ],
+    "instance-4": [
+      "silver_heavy",
+      "instance-0"
+    ],
+    "instance-5": [
+      "silver_heavy",
+      "instance-4"
+    ]
+  },
+  "eval_tasks": {
+    "instance-6": [
+      "silver_heavy",
+      "instance-19"
+    ],
+    "instance-7": [
+      "silver_heavy",
+      "instance-23"
+    ],
+    "instance-8": [
+      "silver_heavy",
+      "instance-15"
+    ],
+    "instance-9": [
+      "silver_heavy",
+      "instance-35"
+    ],
+    "instance-10": [
+      "silver_heavy",
+      "instance-39"
+    ],
+    "instance-11": [
+      "silver_heavy",
+      "instance-38"
+    ],
+    "instance-12": [
+      "silver_heavy",
+      "instance-14"
+    ],
+    "instance-13": [
+      "silver_heavy",
+      "instance-22"
+    ],
+    "instance-14": [
+      "silver_heavy",
+      "instance-34"
+    ],
+    "instance-15": [
+      "silver_heavy",
+      "instance-18"
+    ],
+    "instance-16": [
+      "silver_heavy",
+      "instance-13"
+    ],
+    "instance-17": [
+      "silver_heavy",
+      "instance-29"
+    ],
+    "instance-18": [
+      "silver_heavy",
+      "instance-33"
+    ],
+    "instance-19": [
+      "silver_heavy",
+      "instance-7"
+    ],
+    "instance-20": [
+      "silver_heavy",
+      "instance-25"
+    ],
+    "instance-21": [
+      "silver_heavy",
+      "instance-24"
+    ],
+    "instance-22": [
+      "silver_heavy",
+      "instance-32"
+    ],
+    "instance-23": [
+      "silver_heavy",
+      "instance-28"
+    ],
+    "instance-24": [
+      "silver_heavy",
+      "instance-12"
+    ],
+    "instance-25": [
+      "silver_heavy",
+      "instance-11"
+    ],
+    "instance-26": [
+      "silver_heavy",
+      "instance-27"
+    ],
+    "instance-27": [
+      "silver_heavy",
+      "instance-31"
+    ],
+    "instance-28": [
+      "silver_heavy",
+      "instance-30"
+    ],
+    "instance-29": [
+      "silver_heavy",
+      "instance-26"
+    ],
+    "instance-30": [
+      "silver_heavy",
+      "instance-10"
+    ],
+    "instance-31": [
+      "silver_heavy",
+      "instance-8"
+    ],
+    "instance-32": [
+      "silver_heavy",
+      "instance-21"
+    ],
+    "instance-33": [
+      "silver_heavy",
+      "instance-3"
+    ],
+    "instance-34": [
+      "silver_heavy",
+      "instance-37"
+    ],
+    "instance-35": [
+      "silver_heavy",
+      "instance-17"
+    ],
+    "instance-36": [
+      "silver_heavy",
+      "instance-16"
+    ],
+    "instance-37": [
+      "silver_heavy",
+      "instance-36"
+    ],
+    "instance-38": [
+      "silver_heavy",
+      "instance-2"
+    ],
+    "instance-39": [
+      "silver_heavy",
+      "instance-20"
+    ]
+  }
+}

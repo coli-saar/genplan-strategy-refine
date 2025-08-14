@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-logistics --eval_env additional-logistics --config ./eval_configs/eval_config_all.json --out eval_data.json

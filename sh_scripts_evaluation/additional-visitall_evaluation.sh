@@ -1,0 +1,1 @@
+python run_evaluation.py --env additional-visitall --eval_env additional-visitall --config ./eval_configs/eval_config_all.json --out eval_data.json
