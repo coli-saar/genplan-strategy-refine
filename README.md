@@ -1,6 +1,9 @@
-# genplan-strategy-refine
+# Improved Generalized Planning with LLMs through Strategy Refinement and Reflection
 
-Code and data for the paper [Improved Generalized Planning with LLMs through Strategy Refinement and Reflection](https://www.arxiv.org/abs/2508.13876), to be presented at the [Workshop on Planning in the Era of LLMs](https://llmforplanning.github.io/) @ ICAPS25
+Code and data for the paper [Improved Generalized Planning with LLMs through Strategy Refinement and Reflection](https://www.arxiv.org/abs/2508.13876). <br>
+To be presented at the [Workshop on Planning in the Era of LLMs](https://llmforplanning.github.io/) @ ICAPS25
+
+For more information see also the [project website](https://coli-saar.github.io/genplanstrategyrefine).
 
 ### Prerequisites
 Current version of the code is set up for OpenAI models and tested with OpenAI non-reasoning models. We will upload the files for using open-source models soon. 
