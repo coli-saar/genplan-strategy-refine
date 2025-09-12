@@ -1,12 +1,26 @@
 import os
 from pathlib import Path
-
+from argparse import ArgumentParser
 
 
 if __name__ == '__main__':
 
-    #domains = ['additional-ferry_test']
-    domains = None
+    parser = ArgumentParser()
+    parser.add_argument('-d', type=str, required=False, default='', help='dataset and domain name')
+    parser.add_argument('--conf', required=False, default='./configs/all_domains', help='path to the config directory')
+    parser.add_argument('--sh', required=False, default='./sh_scripts_generation', help='path to the folder for the sh scripts')
+    args = parser.parse_args()
+
+    domains = args.d
+    if domains == '':
+        domains = None      # for running all domains from paper
+    config_dir = args.conf
+    sh_script_folder = args.sh
+
+    # domains = ['additional-ferry']     # for running on a specific dataset
+    # config_dir = './configs/all_domains'  # path to the config directory
+    # sh_script_folder = './sh_scripts_generation'    # path to the folder for the sh scripts
+
 
     if domains is None:
         domains = []
@@ -16,12 +30,10 @@ if __name__ == '__main__':
             domains.append(f'additional-{dom}')
             domains.append(f'silver-{dom}')
 
-
     for domain in domains:
 
         # Sh scripts for generation
-        config_dir = './configs/all_domains'        # TODO: change if running different config files
-        sh_script_folder = './sh_scripts_generation'
+
         Path(sh_script_folder).mkdir(exist_ok=True)
 
         with open(os.path.join(sh_script_folder, f'{domain}_generation.sh'), 'w') as f:

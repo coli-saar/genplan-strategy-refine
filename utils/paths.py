@@ -3,14 +3,15 @@ from pathlib import Path
 from datetime import datetime
 from argparse import Namespace
 
+# TODO: replace YOUR_PATH
+FASTDOWNWARD = 'YOUR_PATH/fast-downward-22.12'
+VAL = 'YOUR_PATH/VAL'
 
 _DIR = Path(__file__).parent.parent
 PDDL_DIR = _DIR / "data"
 CACHE_DIR = _DIR / "llm_cache"
-TEMP_DIR = _DIR / Path('temp_files2')
+TEMP_DIR = _DIR / Path('temp_files')
 PROMPT_DIR = _DIR / "prompts"
-FASTDOWNWARD = '/scratch/kstein/fast-downward-22.12'
-VAL = '/scratch/kstein/planner_tools/VAL'
 LOG_DIR = _DIR / 'logs_error'
 LLM_GEN_DIR = _DIR / 'llm_generated'
 
