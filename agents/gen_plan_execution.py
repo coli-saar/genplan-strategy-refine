@@ -19,11 +19,6 @@ from utils.utils import VariableContainer
 from feedback_generators.code_feedback_generator import CodeFeedbackGenerator
 from feedback_generators.code_feedback_generator_silver import CodeFeedbackGeneratorBasic
 
-"""
-Code taken from Silver et al. https://github.com/tomsilver/llm-genplan
-And then modified 
-"""
-
 
 # Needs to be defined the same script where the classes are available through import
 def str_to_class(class_name: str):
@@ -70,12 +65,11 @@ class GeneralizedPlan:
         spec.loader.exec_module(module)
 
         # Run the generalized plan.
-        if 'def get_plan' in self.code_str:
+        # TODO: deal with this differently maybe
+        if 'def generate_solution' not in self.code_str and 'def get_plan' in self.code_str:
             return_value = module.get_plan(objects, init, goal)
-        elif 'def generate_solution' in self.code_str:
-            return_value = module.generate_solution(objects, init, goal)
         else:
-            raise ValueError('Could not find function generate_solution in the generated Python code')
+            return_value = module.generate_solution(objects, init, goal)
         return return_value
 
     def run_safety_checks(self):
@@ -201,6 +195,9 @@ class CodeExecutor:
                 feedback_gen_args = {'version': 'timeout', 'args': {'info': result_proxy_dict.get('info', '')}}
                 self.code_feedback_gen.result_dict['feedback_gen_args'] = feedback_gen_args
 
+                if 'run_time' not in self.code_feedback_gen.result_dict.keys():
+                    self.code_feedback_gen.result_dict["run_time"] = self.timeout
+
         duration = time.perf_counter() - start_time
 
         self.task_metrics["duration"] = duration
@@ -215,7 +212,6 @@ class CodeExecutor:
         if self.timed_out:
             assert self.timeout is not None and duration > self.timeout
 
-        # TODO: this does not work
         if "error-type" in self.result_dict:
             for error_t in self.result_dict["error-type"]:
                 self.task_metrics[error_t] += 1

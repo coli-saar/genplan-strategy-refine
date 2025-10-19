@@ -71,6 +71,17 @@ class CodeFeedbackGenerator:
                              'error_occurred': None}
         self.result_dict = result_dict
 
+    def fix_results_dict(self):
+        default_result_dict: Dict = {'success': False,
+                                     'feedback': '',
+                                     'error-type': [],
+                                     'plan-length': None,
+                                     'error_occurred': None}
+
+        for key, value in default_result_dict.items():
+            if key not in list(self.result_dict.keys()):
+                self.result_dict[key] = value
+
     def update_task_and_env(self,
                             task: Task,
                             domain_file_path,
@@ -106,7 +117,6 @@ class CodeFeedbackGenerator:
         args.update(self.pddl_env_args)
         self.pddl_env = str_to_class(self.pddl_env_name)(**args)
 
-
     def validate_and_generate_feedback(self, version: str, args: dict):
 
         if version == 'python-exception' or version == 'timeout':
@@ -134,6 +144,8 @@ class CodeFeedbackGenerator:
         if len(list(self.result_dict.keys())) == 0:
             self.reset_result_dict()
             self.result_dict['success'] = False
+        else:
+            self.fix_results_dict()
 
         feedback = f"\nThe code was interrupted because it did not terminate within the time" \
                    f" limit ({self.timeout} seconds). " \
@@ -152,23 +164,32 @@ class CodeFeedbackGenerator:
 
     def _get_feedback_generated_plan(self, plan):
 
+        # Make sure a simulator has been instantiated and is still in the initial state
+        assert self.pddl_env is not None
+        assert self.pddl_env.current_step_id == 0
+
+        output_type_error = False
+        if not isinstance(plan, list):  # if output is not a list
+            output_type_error = True
+        else:
+            for potential_action in plan:   # if elements of output list are not strings
+                if not isinstance(potential_action, str):
+                    output_type_error = True
+                    break
+
+        if output_type_error:
+            feedback = f"The code returned {plan}, which is not a list of actions. " \
+                       f"Please make sure that your code returns a list of actions, i.e. of type List[str]"
+            self.result_dict["feedback"] = feedback
+            self.result_dict["error-type"].append("output-not-plan")
+            return
+
         if self.format_plan:
             formatted_plan = self.get_enum_formatted_plan(plan=plan)
             plan_in_feedback = formatted_plan
         else:
             plan_in_feedback = plan
         enum_info = ' (comments added for readability)' if self.enum_plan else ''
-
-        # Make sure a simulator has been instantiated and is still in the initial state
-        assert self.pddl_env is not None
-        assert self.pddl_env.current_step_id == 0
-
-        if not isinstance(plan, list):
-            feedback = f"The code returned {plan}, which is not a list of actions. " \
-                       f"Please make sure that your code returns a list of actions, i.e. of type List[str]"
-            self.result_dict["feedback"] = feedback
-            self.result_dict["error-type"].append("output-not-plan")
-            return
 
         self.result_dict['plan-length'] = len(plan)
 
@@ -183,7 +204,6 @@ class CodeFeedbackGenerator:
 
             completely_executable = executable
 
-            # TODO:
             if not executable:
                 feedback = f'The code returned the following output:\n{plan_in_feedback}\nbut not all actions are executable.'
                 self.result_dict["feedback"] = feedback
@@ -196,6 +216,7 @@ class CodeFeedbackGenerator:
             self.reset_pddl_env()
             for action_id, action_str in enumerate(plan):
                 simulator_feedback, executable, reached_goal, error_types = self.pddl_env.step(action_instr=action_str)
+
                 completely_executable = False if not executable else completely_executable
                 if not executable:
                     if self.enum_plan:

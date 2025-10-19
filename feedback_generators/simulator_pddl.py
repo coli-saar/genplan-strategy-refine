@@ -15,12 +15,6 @@ from datetime import datetime
 from utils.paths import TEMP_DIR
 
 
-"""
-Code from Stein et al. 2025, https://github.com/minecraft-saar/autoplanbench
-Slightly adapted for more efficient processing
-"""
-
-
 def get_domain_name(domain_path):
     domain_name = None
     with open(domain_path, 'r') as f:
@@ -410,6 +404,12 @@ class RawPDDLEnvironment:
             corrected_format = f'({action_instr})'
             feedback = f'The format of the action in the plan is wrong. Each action needs to be enclosed by brackets, i.e. the correct format would be {corrected_format}.\n'
             mistakes.append('action-formatting')
+        else:
+            action_wo_brackets = action_instr[1:-1]
+            assert action_instr == f'({action_wo_brackets})'
+            if '(' in action_wo_brackets or ')' in action_wo_brackets:
+                feedback = f'The format of the action in the plan is wrong. Each action needs to be enclosed by brackets, but cannot include any additional brackets.\n'
+                mistakes.append('action-formatting')
 
         pred_action_name, pred_objects = self.parse_pddl_tuple(action_instr, decode=False)
 
@@ -836,6 +836,4 @@ class RawPDDLEnvironment:
 
         state_description = f'{object_state_description}\n{state_fact_description}'
         return state_description
-
-
 

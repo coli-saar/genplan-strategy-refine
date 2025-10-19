@@ -1,0 +1,23 @@
+# HTCondor submit description file
+# Everything with a leading # is a comment
+
+universe                = vanilla
+initialdir              = /scratch/aklaus/llama_genplan/genplan-strategy-refine
+executable              = /scratch/aklaus/llama_genplan/genplan-strategy-refine/exe.sh
+arguments               = 11344 generation additional-blocksworld
+output                  = /scratch/aklaus/llama_genplan/genplan-strategy-refine/logs/run.sh.$(ClusterId).$(Year)_$(Month)_$(Day)_$(SUBMIT_TIME).out
+error                   = /scratch/aklaus/llama_genplan/genplan-strategy-refine/logs/run.sh.$(ClusterId).$(Year)_$(Month)_$(Day)_$(SUBMIT_TIME).err
+log                     = /scratch/aklaus/llama_genplan/genplan-strategy-refine/logs/run.sh.$(ClusterId).$(Year)_$(Month)_$(Day)_$(SUBMIT_TIME).log
+request_CPUs            = 16
+request_memory          = 150G
+request_GPUs            = 1
+requirements            = (GPUs_GlobalMemoryMb >= 50000)
+
+getenv                  = True
++WantGPUHomeMounted     = true
+
+queue 1
+
+# go to docker hub and get your docker image or else build from scratch: 
+# https://hub.docker.com/r/huggingface/transformers-pytorch-gpu
+
