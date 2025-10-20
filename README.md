@@ -5,6 +5,8 @@ To be presented at the [Workshop on Planning in the Era of LLMs](https://llmforp
 
 See also the [project website](https://coli-saar.github.io/genplanstrategyrefine) for an overview.
 
+**Note**: the code base is currently undergoing some extensions. The exact code base used for the LLM4Plan Workshop paper is available as a release (v1.0).
+
 ### Prerequisites
 Current version of the code is set up for OpenAI models and tested with OpenAI non-reasoning models. We will upload the files for using open-source models soon. 
 
