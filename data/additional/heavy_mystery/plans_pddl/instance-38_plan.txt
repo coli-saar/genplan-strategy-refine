@@ -1,5 +1,0 @@
-(action_1 o722)
-(action_2 o722 o846)
-(action_2 o846 o579)
-(action_2 o579 o525)
-; cost = 4 (unit cost)

@@ -1,6 +1,0 @@
-(walk r5_c5 r5_c6)
-(walk r5_c6 r5_c7)
-(walk r5_c7 r5_c8)
-(walk r5_c8 r4_c8)
-(walk r4_c8 r3_c8)
-; cost = 5 (unit cost)

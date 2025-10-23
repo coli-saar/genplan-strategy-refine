@@ -1,7 +1,0 @@
-(action_1 o686)
-(action_2 o686 o805)
-(action_2 o805 o998)
-(action_2 o998 o951)
-(action_2 o951 o379)
-(action_2 o379 o981)
-; cost = 6 (unit cost)

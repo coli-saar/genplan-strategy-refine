@@ -1,8 +1,0 @@
-(move room0 room13)
-(pick ball1 room13 gripper0)
-(move room13 room2)
-(pick ball2 room2 gripper1)
-(drop ball1 room2 gripper0)
-(move room2 room3)
-(drop ball2 room3 gripper1)
-; cost = 7 (unit cost)

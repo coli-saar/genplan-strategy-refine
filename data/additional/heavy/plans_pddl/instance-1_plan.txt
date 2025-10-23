@@ -1,7 +1,0 @@
-(pack-first o526)
-(stack o526 o8)
-(stack o8 o671)
-(stack o671 o124)
-(stack o124 o28)
-(stack o28 o5)
-; cost = 6 (unit cost)
