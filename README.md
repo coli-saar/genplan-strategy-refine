@@ -1,6 +1,6 @@
 # Improved Generalized Planning with LLMs through Strategy Refinement and Reflection
 
-**News**: new version of the paper with results from different LLMs is now available here: 
+**News**: new version of the paper with results from different LLMs is now available here: [New version](https://coli-saar.github.io/static/papers/generalized_planning.pdf)
 
 Code and data for the paper [Improved Generalized Planning with LLMs through Strategy Refinement and Reflection](https://www.arxiv.org/abs/2508.13876). <br>
 The paper was presented at the [Workshop on Planning in the Era of LLMs](https://llmforplanning.github.io/) @ ICAPS25
