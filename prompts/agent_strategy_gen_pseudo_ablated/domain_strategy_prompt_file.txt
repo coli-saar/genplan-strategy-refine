@@ -1,0 +1,54 @@
+{% block prompt -%}
+
+Here is the {% if incl_pddl %}PDDL definition and a{% endif %} description of how the game works:
+{% if incl_pddl %}
+"""
+PDDL game definition:
+{{ domain_pddl }}
+"""
+
+{% endif %}
+"""
+Description of the game:
+{{ domain_nl }}
+"""
+
+Here are different task instances of the game{% if incl_plan %} together with one possible solution for solving the task. This is only one of potentially several possible solutions for illustration purposes. The strategy does not need to match this specific solution{% endif %}.
+{% if incl_pddl %}For each task, the PDDL definition and a natural language (NL) description are provided.{% endif %}
+
+{% if incl_pddl %}
+{% for inst in problems %}
+"""
+PDDL task definition:
+{{ inst["pddl"] }}
+
+NL task description:
+{{ inst["nl"]}}
+"""
+
+{% endfor %}
+{% else %}
+{% for inst in problems %}
+"""
+Task definition:
+{{ inst }}
+"""
+
+{% endfor %}
+{% endif %}
+
+Please think about one strategy for how the solutions for all task instances from that game can be obtained. Provide the strategy in the form of a pseudocode for an algorithm.
+Make sure to include all details that are required in order to later convert the pseudocode into an actual program that can automatically solve the tasks.
+
+Additionally, make sure the strategy is very specific. It should be straightforward to follow the strategy in order to derive at a step-by-step solution of the task.
+When referencing actions and predicates make sure to explicitly include their names in the strategy.
+
+You can first think step-by-step about the strategy and include your reasoning for deriving at the final strategy. But at the end of your response, provide only the final pseudocode in the following format:
+
+"""
+Strategy:
+[YOUR PSEUDOCODE]
+"""
+
+
+{%- endblock prompt %}

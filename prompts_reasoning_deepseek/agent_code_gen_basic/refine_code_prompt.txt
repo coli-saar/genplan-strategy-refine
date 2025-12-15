@@ -1,0 +1,26 @@
+{% block prompt -%}
+
+{% if solved_problems %}
+The code you provided me solved the following tasks correctly:
+{% for sp in solved_problems%}
+{{ sp }}
+
+{% endfor %}
+{% elif incl_positive %}
+The code you provided me did not solve any of the tested tasks.
+{% endif %}
+
+The code failed on the following task:
+{{ failed_problem }}
+
+{{ feedback }}
+
+Please provide the adapted version of the python code that fixes the mistake.
+
+
+
+Remember:
+Only include the code for the main function and any required helper functions. Do NOT include any examples or actual calls of the function.
+You cannot use any external libraries or modules.
+
+{%- endblock prompt %}

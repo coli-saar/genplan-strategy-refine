@@ -20,6 +20,7 @@
 	room15
 	room16
 	room17
+	room18
 	room2
 	room3
 	room4
@@ -30,13 +31,13 @@
 	room9
   )
   (:init 
-	(at ball0 room8)
-	(at ball1 room13)
-	(at ball2 room2)
-	(at ball3 room3)
-	(at ball4 room2)
-	(at ball5 room11)
-	(at ball6 room13)
+	(at ball0 room2)
+	(at ball1 room16)
+	(at ball2 room3)
+	(at ball3 room2)
+	(at ball4 room10)
+	(at ball5 room13)
+	(at ball6 room16)
 	(at-robby room0)
 	(ball ball0)
 	(ball ball1)
@@ -58,6 +59,7 @@
 	(room room15)
 	(room room16)
 	(room room17)
+	(room room18)
 	(room room1)
 	(room room2)
 	(room room3)
@@ -69,6 +71,9 @@
 	(room room9)
   )
   (:goal (and
-	(at ball1 room2)
-	(at ball2 room3)))
+	(at ball4 room2)
+	(at ball6 room2)
+	(at ball3 room3)
+	(at ball2 room3)
+	(at ball0 room18)))
 )

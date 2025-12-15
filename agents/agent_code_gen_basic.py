@@ -9,7 +9,7 @@ from pathlib import Path
 from llm_models.llm_base_class import LLMModel
 from agents.validator_feedback_gen import GenPlanValidator
 from utils.tasks import TaskData, Task
-from utils.utils import create_prompt_template, create_problem_str, log_agent_system_prompt, log_llm_interaction
+from utils.helper import create_prompt_template, create_problem_str, log_agent_system_prompt, log_llm_interaction
 
 
 def str_to_class(class_name: str):

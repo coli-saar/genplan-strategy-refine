@@ -4,16 +4,21 @@ from collections import defaultdict, OrderedDict
 from typing import Union, List, Set, Tuple, Any, DefaultDict, Dict
 from pathlib import Path
 from tarski.io import PDDLReader
-from pddlgym.parser import Literal, PDDLDomainParser, PDDLProblemParser
+from tarski.fstrips import Problem
+from tarski.syntax import Atom, CompoundFormula
 from utils.pddl_processing.pddl_parsing import parse_ordered_predicates, parse_actions
+from utils.create_obfuscated import create_lowercase_file, convert_pre2in
 
 
 class Task:
 
     def __init__(self,
                  domain_file_path: str,
-                 problem_file_path: str):
-        #print(problem_file_path)
+                 problem_file_path: str,
+                 print_paths: bool = True):
+        if print_paths:
+            print(domain_file_path)
+            print(problem_file_path)
         self.domain_file_path = Path(domain_file_path)
         self.problem_file_path = Path(problem_file_path)
 
@@ -23,7 +28,7 @@ class Task:
 
         self.task_name = self.problem_file_name.replace('.pddl', '')
 
-        self.domain, self.problem = self.create_problem_and_domain()
+        self.problem = self.create_problem_and_domain()
         self.pddl_reader_tarski = PDDLReader(raise_on_error=True)
         self.pddl_reader_tarski.parse_domain(domain_file_path)
         self.actions: Dict[str, OrderedDict] = parse_actions(pddl_reader=self.pddl_reader_tarski)
@@ -61,24 +66,31 @@ class Task:
     def get_optimal_plan(self) -> List[str]:
         return self.optimal_plan
 
-    def create_problem_and_domain(self) -> Tuple[PDDLDomainParser, PDDLProblemParser]:
+    def create_problem_and_domain(self) -> Problem:
 
-        domain = PDDLDomainParser(
-            self.domain_file_path,
-            expect_action_preds=False,
-            operators_as_actions=True
-        )
+        lower_cased_domain_file = create_lowercase_file(self.domain_file_path)
+        lower_cased_problem_file = create_lowercase_file(self.problem_file_path)
+        reader = PDDLReader(raise_on_error=True)
+        try:
+            reader.parse_domain(lower_cased_domain_file)
+        except Exception:
+            with open(lower_cased_domain_file, 'r') as f:
+                content = f.read()
+                print(content)
+            reader = PDDLReader(raise_on_error=True)
 
-        problem = PDDLProblemParser(
-            self.problem_file_path,
-            domain.domain_name,
-            domain.types,
-            domain.predicates,
-            domain.actions,
-            domain.constants,
-        )
+        try:
+            problem = reader.parse_instance(lower_cased_problem_file)
+        except Exception:
+            with open(lower_cased_problem_file, 'r') as f:
+                content = f.read()
+                print(content)
+            problem = reader.parse_instance(lower_cased_problem_file)
 
-        return domain, problem
+        os.remove(lower_cased_problem_file)
+        os.remove(lower_cased_domain_file)
+
+        return problem
 
     def read_in_domain(self) -> str:
         with open(self.domain_file_path, 'r', encoding='utf-8') as df:
@@ -87,7 +99,6 @@ class Task:
         domain_str = domain_str.strip()
         return domain_str
 
-    # TODO: Think about standardizing the line breaks etc.
     def read_in_problem(self) -> str:
         with open(self.problem_file_path, 'r', encoding='utf-8') as pf:
             problem_str = pf.read().lower()
@@ -122,27 +133,62 @@ class Task:
     @cached_property
     def typed(self) -> bool:
         """Whether the domain is typed."""
-        return self.domain.uses_typing
+        all_types = self.problem.language.sorts
+        if len(all_types) == 1:
+            assert all_types[0].name == 'object'
+            return False
+        elif len(all_types) > 1:
+            return True
+        else:
+            raise ValueError
 
     @property
     def objects(self) -> Union[Set[Tuple[str, str]], Set[str]]:
         """The objects (not including constants) and their types."""
-        if not self.typed:
-            return {o.name for o in self.problem.objects}
-        return {(o.name, str(o.var_type)) for o in self.problem.objects}
+        problem_constants = list(self.problem.language.constants())
+        objects = set()
+        for const in problem_constants:
+            obj_name = str(const.name)
+            if self.typed:
+                obj_type = str(const.sort.name)
+                objects.add((obj_name, obj_type))
+            else:
+                objects.add(obj_name)
+        return objects
 
     @property
     def init(self) -> Set[Tuple[str, ...]]:
         """The initial atoms in string form."""
-        return {_literal_to_tuple(l) for l in self.problem.initial_state}
+        initial_state = [convert_pre2in(initial) for initial in list(self.problem.init.as_atoms())]
+        initial_state = [fact.split(' ') for fact in initial_state]
+        initial_state = set({tuple(fact) for fact in initial_state})
+        return initial_state
 
     @property
     def goal(self) -> Set[Tuple[str, ...]]:
         """The goal in string form."""
-        if isinstance(self.problem.goal, Literal):
-            return {_literal_to_tuple(self.problem.goal)}
+        goal_conditions = []
+
+        if isinstance(self.problem.goal, CompoundFormula):
+            operator = self.problem.goal.connective
+            if operator.name == 'And':
+                for sub in self.problem.goal.subformulas:
+                    if isinstance(sub, Atom):
+                        goal_conditions.append(convert_pre2in(sub))
+                    elif sub.connective.name == 'Not':
+                        raise ValueError
+            else:
+                raise ValueError
+
+        elif isinstance(self.problem.goal, Atom):
+            goal_conditions.append(convert_pre2in(self.problem.goal))
+
         else:
-            return {_literal_to_tuple(l) for l in self.problem.goal.literals}
+            raise ValueError
+        goal_conditions = [fact.split(' ') for fact in goal_conditions]
+        goal_conditions = {tuple(fact) for fact in goal_conditions}
+
+        return set(goal_conditions)
 
     @cached_property
     def size(self) -> int:
@@ -252,10 +298,11 @@ class Task:
         else:
             name, remainder = action.split(" ", 1)
             arg_names = remainder.split(" ")
-        if name not in self.domain.operators:
+        if name not in self.problem.actions.keys():
             return False
-        if len(arg_names) != len(self.domain.operators[name].params):
+        if len(arg_names) != len(self.problem.actions[name].parameters):
             return False
+
         return True
 
     @cached_property
@@ -302,7 +349,8 @@ class Task:
         return formatted
 
 
-def _literal_to_tuple(lit: Literal) -> Tuple[str, ...]:
+# TODO
+def _literal_to_tuple(lit) -> Tuple[str, ...]:
     arg_strs = [v.name for v in lit.variables]
     return (lit.predicate.name,) + tuple(arg_strs)
 
@@ -383,10 +431,9 @@ class TaskData:
         else:
             return self.task.optimal_plan
 
-    # TODO: think about this
     def get_plan_str(self) -> str:
         plan = self.get_plan()
-        plan_str = ', '.join(plan)
+        plan_str = '\n'.join(plan)
         if plan_str == '':
             plan_str = 'Goal is already satisfied.'
         return plan_str
@@ -396,6 +443,133 @@ class TaskData:
             return self.nl_plan_gen
         else:
             return self.nl_plan_optimal
+
+
+class TaskSimple:
+    def __init__(self,
+                 domain_file_path: str,
+                 problem_file_path: str,
+                 print_paths: bool = True):
+        if print_paths:
+            print(domain_file_path)
+            print(problem_file_path)
+        self.domain_file_path = Path(domain_file_path)
+        self.problem_file_path = Path(problem_file_path)
+
+        self.problem_file_name = os.path.split(problem_file_path)[-1]
+        self.task_name = self.problem_file_name.replace('.pddl', '')
+
+        self.problem = self.create_problem_and_domain()
+        self.pddl_reader_tarski = PDDLReader(raise_on_error=True)
+        self.pddl_reader_tarski.parse_domain(domain_file_path)
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
+        other_objs = other.objects
+        other_init = other.init
+        other_goal = other.goal
+
+        if other_goal != self.goal:
+            return False
+        if other_init != self.init:
+            return False
+        if other_objs != self.objects:
+            return False
+        else:
+            return True
+
+    def create_problem_and_domain(self) -> Problem:
+
+        lower_cased_domain_file = create_lowercase_file(self.domain_file_path)
+        lower_cased_problem_file = create_lowercase_file(self.problem_file_path)
+        reader = PDDLReader(raise_on_error=True)
+        try:
+            reader.parse_domain(lower_cased_domain_file)
+        except Exception:
+            with open(lower_cased_domain_file, 'r') as f:
+                content = f.read()
+                print(content)
+            reader = PDDLReader(raise_on_error=True)
+
+        try:
+            problem = reader.parse_instance(lower_cased_problem_file)
+        except Exception:
+            with open(lower_cased_problem_file, 'r') as f:
+                content = f.read()
+                print(content)
+            problem = reader.parse_instance(lower_cased_problem_file)
+
+        return problem
+
+    def get_file_paths(self):
+        return self.domain_file_path, self.problem_file_path
+
+    @cached_property
+    def typed(self) -> bool:
+        """Whether the domain is typed."""
+        all_types = self.problem.language.sorts
+        if len(all_types) == 1:
+            assert all_types[0].name == 'object'
+            return False
+        elif len(all_types) > 1:
+            return True
+        else:
+            raise ValueError
+
+    @property
+    def objects(self) -> Union[Set[Tuple[str, str]], Set[str]]:
+        """The objects (not including constants) and their types."""
+        problem_constants = list(self.problem.language.constants())
+        objects = set()
+        for const in problem_constants:
+            obj_name = str(const.name)
+            if self.typed:
+                obj_type = str(const.sort.name)
+                objects.add((obj_name, obj_type))
+            else:
+                objects.add(obj_name)
+        return objects
+
+    @property
+    def init(self) -> Set[Tuple[str, ...]]:
+        """The initial atoms in string form."""
+        initial_state = [convert_pre2in(initial) for initial in list(self.problem.init.as_atoms())]
+        initial_state = [fact.split(' ') for fact in initial_state]
+        initial_state = set({tuple(fact) for fact in initial_state})
+        return initial_state
+
+    @property
+    def goal(self) -> Set[Tuple[str, ...]]:
+        """The goal in string form."""
+        goal_conditions = []
+
+        if isinstance(self.problem.goal, CompoundFormula):
+            operator = self.problem.goal.connective
+            if operator.name == 'And':
+                for sub in self.problem.goal.subformulas:
+                    if isinstance(sub, Atom):
+                        goal_conditions.append(convert_pre2in(sub))
+                    elif sub.connective.name == 'Not':
+                        raise ValueError
+            else:
+                raise ValueError
+
+        elif isinstance(self.problem.goal, Atom):
+            goal_conditions.append(convert_pre2in(self.problem.goal))
+
+        else:
+            raise ValueError
+        goal_conditions = [fact.split(' ') for fact in goal_conditions]
+        goal_conditions = {tuple(fact) for fact in goal_conditions}
+
+        return set(goal_conditions)
+
+    @cached_property
+    def size(self) -> int:
+        """Crude estimate of task size."""
+        return len(self.objects) + len(self.init) + len(self.goal)
 
 
 def update_domain_strategy(task_dict: Dict[str, TaskData],

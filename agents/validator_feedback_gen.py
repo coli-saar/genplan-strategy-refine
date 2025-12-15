@@ -7,7 +7,7 @@ from argparse import Namespace
 from utils.tasks import Task
 from agents.gen_plan_execution import GeneralizedPlan, CodeExecutor
 from utils.metrics import initialize_task_metrics, GENPLAN_ERROR_TYPES
-from utils.utils import create_problem_str
+from utils.helper import create_problem_str
 
 
 """

@@ -6,7 +6,7 @@ from pathlib import Path
 from argparse import Namespace
 from utils.tasks import Task
 from utils.paths import get_benchmark_dir, get_llm_gen_dir
-from utils.utils import convert_path2str, run_symbolic_planner
+from utils.helper import convert_path2str, run_symbolic_planner
 from agents.agent_code_gen import postprocess_response
 from evaluation.evaluation import run_evaluation
 from agentic_genplan.create_tasks import create_tasks_split

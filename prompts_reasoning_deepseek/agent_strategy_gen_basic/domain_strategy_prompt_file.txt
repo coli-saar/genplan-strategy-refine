@@ -1,0 +1,32 @@
+{% block prompt -%}
+
+You are a brilliant assistant for helping people who are playing a game. Your task is to provide them a strategy for how they can solve different instances of that game. Suggest the most simple strategy that achieves this goal. The strategy does not need to be optimal.
+You are not allowed to propose any search algorithms or strategies involving search for solving the game.
+
+Here is the description of how the game works:
+"""
+Description of the game:
+{{ domain_nl }}
+"""
+
+Here are different task instances of the game{% if incl_plan %} together with examples of possible solutions for solving the task{% endif %}.
+
+{% for inst in problems %}
+"""
+Task definition:
+{{ inst }}
+"""
+
+{% endfor %}
+
+Please provide one strategy for how the solutions for all task instances from that game can be obtained. Provide the strategy in natural language.
+Make sure to include all details that are required in order to successfully solve the tasks.
+Provide only the final strategy in the following format:
+
+"""
+Strategy:
+[YOUR STRATEGY]
+"""
+
+
+{%- endblock prompt %}

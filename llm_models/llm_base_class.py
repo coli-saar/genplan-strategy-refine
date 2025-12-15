@@ -20,6 +20,7 @@ class LLMModel(ABC):
                  max_tokens: int,
                  temp: float,
                  max_history: Union[int, None],
+                 reasoning_model: bool = False,
                  cache_directory: Union[str, None] = None,
                  seed: Union[int, None] = None):
         """
@@ -63,6 +64,8 @@ class LLMModel(ABC):
         self.max_total_tokens = 0
 
         self.n_calls = 0  # number of calls of the generate method
+
+        self.reasoning_model = reasoning_model
 
     @abstractmethod
     def init_model(self, init_prompt: str, examples: List[dict]):
@@ -158,12 +161,15 @@ class LLMModel(ABC):
         prompt = self.prepare_for_generation(user_message)
         response_source = 'generated'
         if self.temperature == 0 and self.cache:
+
             cache_query = self.create_cache_query(prompt=prompt)
             with Cache(directory=self.cache) as cache:
                 if cache_query in cache:
                     print('Retrieved from cache')
                     response = cache[cache_query]
                     response_source = 'cache'
+                    print(response['model'])
+
                 else:
                     try:
                         response = self._generate(prompt)
@@ -178,6 +184,13 @@ class LLMModel(ABC):
             except Exception as e:
                 print(prompt)
                 raise e
+
+        if self.reasoning_model:
+            last_reasoning = response['choices'][0]['message']['reasoning_content']
+            if response_source == 'generated':
+                assert self.last_reasoning == last_reasoning
+            else:
+                self.last_reasoning = last_reasoning
 
         actual_response = self.clean_up_from_generation(model_response=response,
                                                         response_source=response_source)

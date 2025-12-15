@@ -3,7 +3,7 @@ from pathlib import Path
 from agents.agent_description_gen_basic import AgentDescriptionGenBasic
 from llm_models.llm_base_class import LLMModel
 from utils.tasks import Task, TaskData
-from utils.utils import create_prompt_template
+from utils.helper import create_prompt_template
 
 
 class AgentDescriptionGen(AgentDescriptionGenBasic):
@@ -34,6 +34,8 @@ class AgentDescriptionGen(AgentDescriptionGenBasic):
 
         self.important_aspects_prompt = create_prompt_template(imp_aspects_prompt_file, flags=self.flags) if imp_aspects_prompt_file is not None else None
         self.sum_prompt_file = create_prompt_template(sum_prompt_file, flags=self.flags) if sum_prompt_file is not None else None
+
+        self.domain_description_history = []
 
     def generate_descriptions(self):
 
@@ -104,8 +106,9 @@ class AgentDescriptionGen(AgentDescriptionGenBasic):
         problem_description = None
         plan_description = None
 
-        assert 'Problem description:' in model_output
+        #assert 'Problem description:' in model_output
         if incl_plan:
+            assert 'Problem description:' in model_output
             assert 'Plan description:' in model_output
 
         if model_output.count('"""') == 4 or model_output.count('"""') == 2:
@@ -156,11 +159,13 @@ class AgentDescriptionGen(AgentDescriptionGenBasic):
             response, _ = self.llm_model.generate(user_message=prompt)
             self.log_llm_input_output()
 
+        self.domain_description_history = self.llm_model.get_history().copy()
         response = self.parse_domain_descript_output(model_response=response)
 
         return response
 
     def generate_problem_description(self, task: Task, include_plan: bool) -> str:
+
         # Take only system prompt + potentially few-shot examples and add the generated domain description
         initial_history = self.llm_model.get_initial_history()
         new_history = initial_history.copy()

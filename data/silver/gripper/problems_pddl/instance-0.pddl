@@ -8,8 +8,6 @@
 	ball4
 	ball5
 	ball6
-	ball7
-	ball8
 	gripper0
 	gripper1
 	room0
@@ -22,8 +20,6 @@
 	room15
 	room16
 	room17
-	room18
-	room19
 	room2
 	room3
 	room4
@@ -34,15 +30,13 @@
 	room9
   )
   (:init 
-	(at ball0 room0)
-	(at ball1 room3)
-	(at ball2 room3)
-	(at ball3 room7)
-	(at ball4 room9)
-	(at ball5 room19)
-	(at ball6 room18)
-	(at ball7 room4)
-	(at ball8 room6)
+	(at ball0 room8)
+	(at ball1 room13)
+	(at ball2 room2)
+	(at ball3 room3)
+	(at ball4 room2)
+	(at ball5 room11)
+	(at ball6 room13)
 	(at-robby room0)
 	(ball ball0)
 	(ball ball1)
@@ -51,8 +45,6 @@
 	(ball ball4)
 	(ball ball5)
 	(ball ball6)
-	(ball ball7)
-	(ball ball8)
 	(free gripper0)
 	(free gripper1)
 	(gripper gripper0)
@@ -66,8 +58,6 @@
 	(room room15)
 	(room room16)
 	(room room17)
-	(room room18)
-	(room room19)
 	(room room1)
 	(room room2)
 	(room room3)
@@ -79,6 +69,6 @@
 	(room room9)
   )
   (:goal (and
-	(at ball7 room13)
-	(at ball6 room8)))
+	(at ball1 room2)
+	(at ball2 room3)))
 )

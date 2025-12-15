@@ -8,7 +8,7 @@ from llm_models.llm_base_class import LLMModel
 from agents.agent_plan_generation import AgentPlanGen, AgentPlanGenPseudoCode
 from feedback_generators.feedback_generator_plan import BasicFeedbackGenerator
 from utils.tasks import TaskData
-from utils.utils import log_agent_system_prompt
+from utils.helper import log_agent_system_prompt
 
 
 """
@@ -38,6 +38,7 @@ class AgentStrategyValidatePlanBased:
                  llm_gen_dir: Path,
                  res_dir: Path,
                  flags: dict,
+                 input_version: str = 'nl',
                  feedback_gen_args: Union[dict, None] = None,
                  threshold: float = 0.0,
                  typed_hints: bool = False):
@@ -66,6 +67,7 @@ class AgentStrategyValidatePlanBased:
         self.llm_model = llm_model
         self.task_dict = task_dict
         self.llm_gen_dir = llm_gen_dir
+        self.input_version = input_version
 
         # Logging set-up
         self.log_dir = log_dir
@@ -107,6 +109,7 @@ class AgentStrategyValidatePlanBased:
         if isinstance(plan_gen_args, dict):
             agent_name = plan_gen_args.pop('name')
             plan_gen_args['typed_hints'] = self.typed_hints
+            plan_gen_args['input_version'] = self.input_version
 
         elif isinstance(plan_gen_args, str):
             plan_gen_prompt_file = plan_gen_args
@@ -115,7 +118,8 @@ class AgentStrategyValidatePlanBased:
                 'plan_gen_prompt_file': plan_gen_prompt_file,
                 'typed_hints': self.typed_hints,
                 'llm_gen_dir': self.llm_gen_dir,
-                'flags': self.flags
+                'flags': self.flags,
+                'input_version': self.input_version
             }
             agent_name = 'AgentPlanGen'
         else:
@@ -179,7 +183,12 @@ class AgentStrategyValidatePlanBased:
         model_hist = self.agent_plan_gen.llm_model.get_history()
         self.plan_gen_llm_hists[task_data.task_name] = copy(model_hist)
 
-        assert len(model_hist) == 3
+        contains_system_prompt = True if model_hist[0]['role'] == 'system' else False
+
+        if contains_system_prompt:
+            assert len(model_hist) == 3, f'Model history length is {len(model_hist)}'
+        else:
+            assert len(model_hist) == 2, f'Model history length is {len(model_hist)}'
         last_out = model_hist.pop(-1)
         last_in = model_hist[-1]
         assert last_in['role'] == 'user'

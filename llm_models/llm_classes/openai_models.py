@@ -10,6 +10,7 @@ class OpenAIChatModel(LLMModel):
 
     def __init__(self,
                  model_path: str,
+                 model_name: str = 'openai_chat',
                  max_history: Union[int, None] = None,
                  temperature: float = 0.0,
                  cache_directory: Union[str, None] = 'default',
@@ -17,7 +18,8 @@ class OpenAIChatModel(LLMModel):
                  seed: Union[int, None] = None,
                  logprobs: bool = True,
                  additional_openai_parameters: Union[dict, None] = None,
-                 openai_credentials: Union[dict, None] = None):
+                 openai_credentials: Union[dict, None] = None,
+                 reasoning_model: bool = False):
         """
 
         :param model_path: the name of the open AI model
@@ -35,8 +37,14 @@ class OpenAIChatModel(LLMModel):
         :param openai_credentials:
         """
         set_env_vars()
-        super().__init__(model_type='openai_chat', model_path=model_path, max_tokens=max_tokens, temp=temperature,
-                         max_history=max_history, cache_directory=cache_directory, seed=seed)
+        super().__init__(model_type=model_name,
+                         model_path=model_path,
+                         max_tokens=max_tokens,
+                         temp=temperature,
+                         max_history=max_history,
+                         cache_directory=cache_directory,
+                         seed=seed,
+                         reasoning_model=reasoning_model)
         self.logprobs = logprobs
         self.client = self.create_client(openai_credentials)
 

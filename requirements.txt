@@ -1,9 +1,9 @@
 diskcache
 openai
 jinja2
+nltk
 numpy
 ordered_set
-pddlgym
 tarski
 pandas
 tiktoken

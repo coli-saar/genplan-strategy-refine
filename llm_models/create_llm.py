@@ -1,16 +1,13 @@
 import copy
 from typing import Union
-import os
 
 from llm_models.utils.helpers import get_cache_dir
 from llm_models.llm_base_class import LLMModel
 from llm_models.llm_classes.openai_models import OpenAIChatModel
 from llm_models.llm_classes.openai_models_sampling import OpenAIChatModelSampling
 from llm_models.llm_classes.ollama_models import OllamaModel
-#from .vicuna_models import VicunaModel
-#from .openai_batch_model import OpenAIChatBatch
-#from .llama_model import LlamaModel
-
+from llm_models.llm_classes.sglang_models import SGLangModel, SGLangThinking
+from llm_models.llm_classes.deepseek import DeepSeekReasonModel
 
 def create_llm_model(model_type: str,
                      model_param: dict,
@@ -45,13 +42,12 @@ def create_llm_model(model_type: str,
 
     elif model_type == 'ollama':
         model = OllamaModel(**model_input_param)
-
-    # TODO:
-    #elif model_type == 'llama_hf':
-    #    model = LlamaModel(**model_input_param)
-
-    #elif model_type in ['vicuna', 'vicuna-x-gpt']:
-    #    model = VicunaModel(**model_input_param)
+    elif model_type == 'sglang':
+        model = SGLangModel(**model_input_param)
+    elif model_type == 'sglang_think':
+        model = SGLangThinking(**model_input_param)
+    elif model_type == 'deepseek-reasoner':
+        model = DeepSeekReasonModel(**model_input_param)
     else:
         raise NotImplementedError
 

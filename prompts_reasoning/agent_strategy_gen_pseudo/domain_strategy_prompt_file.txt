@@ -1,0 +1,32 @@
+{% block prompt -%}
+
+Here is the description of how the game works:
+"""
+Description of the game:
+{{ domain_nl }}
+"""
+
+Here are different task instances of the game{% if incl_plan %} together with one possible solution for solving the task. This is only one of potentially several possible solutions for illustration purposes. The strategy does not need to match this specific solution{% endif %}.
+
+{% for inst in problems %}
+"""
+Task definition:
+{{ inst }}
+"""
+
+{% endfor %}
+
+Please provide one strategy for how the solutions for all task instances from that game can be obtained. Provide the strategy in the form of a pseudocode for an algorithm.
+Make sure to include all details that are required in order to later convert the pseudocode into an actual program that can automatically solve the tasks.
+
+Additionally, make sure the strategy is very specific. It should be straightforward to follow the strategy in order to derive at a step-by-step solution of the task.
+
+Provide only the final pseudocode in the following format:
+
+"""
+Strategy:
+[YOUR PSEUDOCODE]
+"""
+
+
+{%- endblock prompt %}

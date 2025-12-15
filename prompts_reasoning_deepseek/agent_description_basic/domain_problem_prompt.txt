@@ -1,0 +1,58 @@
+{%- block pddl -%}
+
+You are a brilliant assistant for helping people who do not know anything about AI planning understand planning domains.
+
+Your task is to provide a natural language description of a planning domain presented to you in PDDL.
+The natural language description should be formulated such that it does not sound like a typical planning problem anymore. Describe the task in such a way that it sounds like a puzzle and I can provide the description to my friends who know nothing about AI planning. Make sure to include all relevant information about what the player can do (i.e. the available actions) and in which situations these options are possible.
+
+Do not make up any additional facts that are not supported by the PDDL definition.
+Do not write the description such that it addresses the reader (i.e. do not write "you"). For example, do not write "your task" but "the task".
+Do not write "imagine that ..." in your description.
+
+Here is the definition of the target domain and some problem instances of the domain both represented in PDDL.
+
+"""
+Domain definition:
+{{ domain_str }}
+"""
+
+{% for prob in problems %}
+"""
+{{ prob }}
+"""
+
+{% endfor %}
+
+Please provide the natural language description of the domain.
+
+Additionally, write a short description for each of the specific problem instances provided. The description should be easy to read for people who do not know any PDDL. It should consist of natural language, but it does not need to be a paragraph of text. You can structure the description such that it is easy to process, e.g. you can express (parts of) the initial state in an ascii-like representation.
+
+{% if plan_str %} Also, provide a description of the presented example solution plan. {% endif %}
+
+Your response should have the following format:
+
+"""
+Description of the game:
+[YOUR DESCRIPTION]
+"""
+
+"""
+Problem description 1:
+[YOUR DESCRIPTION]
+
+{%- if incl_plans %}
+
+Plan description 1:
+[YOUR DESCRIPTION]
+{% endif %}
+"""
+
+"""
+...
+"""
+
+
+Make sure that the problem description mentions all objects that are part of the problem instance.
+Do not include anything else than the descriptions themselves between the quotation marks.
+
+{%- endblock pddl -%}

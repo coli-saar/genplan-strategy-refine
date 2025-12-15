@@ -15,7 +15,7 @@ from argparse import Namespace
 
 from utils.tasks import Task
 from utils.metrics import initialize_task_metrics
-from utils.utils import VariableContainer
+from utils.helper import VariableContainer
 from feedback_generators.code_feedback_generator import CodeFeedbackGenerator
 from feedback_generators.code_feedback_generator_silver import CodeFeedbackGeneratorBasic
 

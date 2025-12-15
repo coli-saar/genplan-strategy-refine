@@ -1,37 +1,37 @@
-(define (problem prob7)
+(define (problem prob0)
  (:domain spanner)
  (:objects 
      bob - man
  spanner1 spanner2 spanner3 spanner4 spanner5 spanner6 spanner7 spanner8 spanner9 spanner10 spanner11 spanner12 spanner13 - spanner
-     nut1 nut2 nut3 nut4 nut5 nut6 nut7 nut8 nut9 nut10 nut11 nut12 - nut
-     location1 location2 location3 location4 location5 location6 location7 location8 location9 location10 location11 location12 location13 location14 location15 location16 location17 location18 location19 location20 location21 location22 - location
+     nut1 nut2 nut3 nut4 nut5 nut6 nut7 nut8 nut9 nut10 nut11 - nut
+     location1 location2 location3 location4 location5 location6 location7 location8 location9 location10 location11 location12 location13 location14 location15 location16 location17 location18 location19 location20 - location
      shed gate - location
     )
  (:init 
     (at bob shed)
-    (at spanner1 location5)
+    (at spanner1 location2)
     (useable spanner1)
-    (at spanner2 location8)
+    (at spanner2 location18)
     (useable spanner2)
-    (at spanner3 location2)
+    (at spanner3 location1)
     (useable spanner3)
-    (at spanner4 location19)
+    (at spanner4 location3)
     (useable spanner4)
-    (at spanner5 location21)
+    (at spanner5 location13)
     (useable spanner5)
-    (at spanner6 location18)
+    (at spanner6 location1)
     (useable spanner6)
     (at spanner7 location20)
     (useable spanner7)
-    (at spanner8 location22)
+    (at spanner8 location16)
     (useable spanner8)
-    (at spanner9 location3)
+    (at spanner9 location11)
     (useable spanner9)
-    (at spanner10 location1)
+    (at spanner10 location8)
     (useable spanner10)
-    (at spanner11 location4)
+    (at spanner11 location11)
     (useable spanner11)
-    (at spanner12 location21)
+    (at spanner12 location3)
     (useable spanner12)
     (at spanner13 location7)
     (useable spanner13)
@@ -57,10 +57,8 @@
     (at nut10 gate)
     (loose nut11)
     (at nut11 gate)
-    (loose nut12)
-    (at nut12 gate)
     (link shed location1)
-    (link location22 gate)
+    (link location20 gate)
     (link location1 location2)
     (link location2 location3)
     (link location3 location4)
@@ -80,8 +78,6 @@
     (link location17 location18)
     (link location18 location19)
     (link location19 location20)
-    (link location20 location21)
-    (link location21 location22)
 )
  (:goal
   (and
@@ -96,5 +92,4 @@
    (tightened nut9)
    (tightened nut10)
    (tightened nut11)
-   (tightened nut12)
 )))

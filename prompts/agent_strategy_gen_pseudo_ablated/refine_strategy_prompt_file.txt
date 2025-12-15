@@ -1,0 +1,18 @@
+{% block prompt -%}
+
+Now, please provide the adapted version of the pseudocode strategy that allows to generate correct plans for instances of the domain.
+
+You can think step-by-step and include your reasoning for deriving at the adapted strategy. But at the end of your response, provide only the final pseudocode in the following format:
+
+"""
+Strategy:
+[YOUR PSEUDOCODE]
+"""
+
+Make sure that the strategy is specific enough to allow someone without any other background knowledge to successfully generate correct plans. Avoid adding only very generic additional steps such as "Make sure to follow all preconditions" but make sure to extend and adapt the strategy in a way that the final pseudocode contains itself does not lead to unmet preconditions.
+When referencing actions and predicates make sure to explicitly include their names in the strategy.
+
+Remember:
+You are not allowed to propose any search algorithms or strategies involving search for solving the game.
+
+{%- endblock prompt %}

@@ -1,177 +1,134 @@
-
-(define (problem manygripper) (:domain gripper-strips)
-  (:objects
-        ball0
-	ball1
-	ball10
-	ball11
-	ball12
-	ball13
-	ball14
-	ball15
-	ball16
-	ball17
-	ball18
-	ball19
-	ball2
-	ball20
-	ball21
-	ball3
-	ball4
-	ball5
-	ball6
-	ball7
-	ball8
-	ball9
-	gripper0
-	gripper1
-	room0
-	room1
-	room10
-	room11
-	room12
-	room13
-	room14
-	room15
-	room16
-	room17
-	room18
-	room19
-	room2
-	room20
-	room21
-	room22
-	room23
-	room24
-	room25
-	room26
-	room27
-	room28
-	room29
-	room3
-	room30
-	room31
-	room32
-	room33
-	room34
-	room35
-	room36
-	room37
-	room38
-	room39
-	room4
-	room40
-	room41
-	room5
-	room6
-	room7
-	room8
-	room9
-  )
-  (:init 
-	(at ball0 room22)
-	(at ball10 room18)
-	(at ball11 room14)
-	(at ball12 room14)
-	(at ball13 room20)
-	(at ball14 room7)
-	(at ball15 room27)
-	(at ball16 room15)
-	(at ball17 room23)
-	(at ball18 room11)
-	(at ball19 room13)
-	(at ball1 room15)
-	(at ball20 room29)
-	(at ball21 room31)
-	(at ball2 room15)
-	(at ball3 room28)
-	(at ball4 room7)
-	(at ball5 room27)
-	(at ball6 room24)
-	(at ball7 room24)
-	(at ball8 room12)
-	(at ball9 room13)
-	(at-robby room0)
-	(ball ball0)
-	(ball ball10)
-	(ball ball11)
-	(ball ball12)
-	(ball ball13)
-	(ball ball14)
-	(ball ball15)
-	(ball ball16)
-	(ball ball17)
-	(ball ball18)
-	(ball ball19)
-	(ball ball1)
-	(ball ball20)
-	(ball ball21)
-	(ball ball2)
-	(ball ball3)
-	(ball ball4)
-	(ball ball5)
-	(ball ball6)
-	(ball ball7)
-	(ball ball8)
-	(ball ball9)
-	(free gripper0)
-	(free gripper1)
-	(gripper gripper0)
-	(gripper gripper1)
-	(room room0)
-	(room room10)
-	(room room11)
-	(room room12)
-	(room room13)
-	(room room14)
-	(room room15)
-	(room room16)
-	(room room17)
-	(room room18)
-	(room room19)
-	(room room1)
-	(room room20)
-	(room room21)
-	(room room22)
-	(room room23)
-	(room room24)
-	(room room25)
-	(room room26)
-	(room room27)
-	(room room28)
-	(room room29)
-	(room room2)
-	(room room30)
-	(room room31)
-	(room room32)
-	(room room33)
-	(room room34)
-	(room room35)
-	(room room36)
-	(room room37)
-	(room room38)
-	(room room39)
-	(room room3)
-	(room room40)
-	(room room41)
-	(room room4)
-	(room room5)
-	(room room6)
-	(room room7)
-	(room room8)
-	(room room9)
-  )
-  (:goal (and
-	(at ball12 room21)
-	(at ball3 room34)
-	(at ball7 room32)
-	(at ball18 room35)
-	(at ball5 room41)
-	(at ball13 room39)
-	(at ball8 room27)
-	(at ball11 room10)
-	(at ball15 room4)
-	(at ball14 room17)
-	(at ball6 room3)
-	(at ball21 room37)))
-)
+(define (problem strips-gripper-x-19)
+   (:domain gripper-strips)
+   (:objects rooma roomb ball40 ball39 ball38 ball37 ball36 ball35
+             ball34 ball33 ball32 ball31 ball30 ball29 ball28 ball27 ball26
+             ball25 ball24 ball23 ball22 ball21 ball20 ball19 ball18 ball17
+             ball16 ball15 ball14 ball13 ball12 ball11 ball10 ball9 ball8
+             ball7 ball6 ball5 ball4 ball3 ball2 ball1 left right)
+   (:init (room rooma)
+          (room roomb)
+          (ball ball40)
+          (ball ball39)
+          (ball ball38)
+          (ball ball37)
+          (ball ball36)
+          (ball ball35)
+          (ball ball34)
+          (ball ball33)
+          (ball ball32)
+          (ball ball31)
+          (ball ball30)
+          (ball ball29)
+          (ball ball28)
+          (ball ball27)
+          (ball ball26)
+          (ball ball25)
+          (ball ball24)
+          (ball ball23)
+          (ball ball22)
+          (ball ball21)
+          (ball ball20)
+          (ball ball19)
+          (ball ball18)
+          (ball ball17)
+          (ball ball16)
+          (ball ball15)
+          (ball ball14)
+          (ball ball13)
+          (ball ball12)
+          (ball ball11)
+          (ball ball10)
+          (ball ball9)
+          (ball ball8)
+          (ball ball7)
+          (ball ball6)
+          (ball ball5)
+          (ball ball4)
+          (ball ball3)
+          (ball ball2)
+          (ball ball1)
+          (at-robby rooma)
+          (free left)
+          (free right)
+          (at ball40 rooma)
+          (at ball39 rooma)
+          (at ball38 rooma)
+          (at ball37 rooma)
+          (at ball36 rooma)
+          (at ball35 rooma)
+          (at ball34 rooma)
+          (at ball33 rooma)
+          (at ball32 rooma)
+          (at ball31 rooma)
+          (at ball30 rooma)
+          (at ball29 rooma)
+          (at ball28 rooma)
+          (at ball27 rooma)
+          (at ball26 rooma)
+          (at ball25 rooma)
+          (at ball24 rooma)
+          (at ball23 rooma)
+          (at ball22 rooma)
+          (at ball21 rooma)
+          (at ball20 rooma)
+          (at ball19 rooma)
+          (at ball18 rooma)
+          (at ball17 rooma)
+          (at ball16 rooma)
+          (at ball15 rooma)
+          (at ball14 rooma)
+          (at ball13 rooma)
+          (at ball12 rooma)
+          (at ball11 rooma)
+          (at ball10 rooma)
+          (at ball9 rooma)
+          (at ball8 rooma)
+          (at ball7 rooma)
+          (at ball6 rooma)
+          (at ball5 rooma)
+          (at ball4 rooma)
+          (at ball3 rooma)
+          (at ball2 rooma)
+          (at ball1 rooma)
+          (gripper left)
+          (gripper right))
+   (:goal (and (at ball40 roomb)
+               (at ball39 roomb)
+               (at ball38 roomb)
+               (at ball37 roomb)
+               (at ball36 roomb)
+               (at ball35 roomb)
+               (at ball34 roomb)
+               (at ball33 roomb)
+               (at ball32 roomb)
+               (at ball31 roomb)
+               (at ball30 roomb)
+               (at ball29 roomb)
+               (at ball28 roomb)
+               (at ball27 roomb)
+               (at ball26 roomb)
+               (at ball25 roomb)
+               (at ball24 roomb)
+               (at ball23 roomb)
+               (at ball22 roomb)
+               (at ball21 roomb)
+               (at ball20 roomb)
+               (at ball19 roomb)
+               (at ball18 roomb)
+               (at ball17 roomb)
+               (at ball16 roomb)
+               (at ball15 roomb)
+               (at ball14 roomb)
+               (at ball13 roomb)
+               (at ball12 roomb)
+               (at ball11 roomb)
+               (at ball10 roomb)
+               (at ball9 roomb)
+               (at ball8 roomb)
+               (at ball7 roomb)
+               (at ball6 roomb)
+               (at ball5 roomb)
+               (at ball4 roomb)
+               (at ball3 roomb)
+               (at ball2 roomb)
+               (at ball1 roomb))))

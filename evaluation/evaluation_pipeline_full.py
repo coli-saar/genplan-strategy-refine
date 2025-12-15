@@ -2,12 +2,12 @@ import os
 import json
 from copy import deepcopy
 from typing import List
-from pathlib import Path
+from pathlib import Path, PosixPath
 from collections import defaultdict
 from argparse import Namespace
 from utils.tasks import Task
 from utils.paths import get_benchmark_dir, get_llm_gen_dir
-from utils.utils import convert_path2str, run_symbolic_planner
+from utils.helper import convert_path2str, run_symbolic_planner
 from agents.agent_code_gen import postprocess_response
 from evaluation.evaluation import run_evaluation
 from evaluation.evaluation_pipeline import create_llm_generated_eval_tasks, create_eval_tasks, create_val_tasks
@@ -20,16 +20,41 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
                                         flags: Namespace) -> dict:
     all_exp_files = list(os.listdir(output_dir_exp))
 
-    print(result_dir_exp)
     result_file = None
+    print(result_dir_exp)
+    error_occurred = False
+    for file in os.listdir(output_dir_exp):
+        if file.startswith('error'):
+            error_occurred = True
+
     for file in os.listdir(result_dir_exp):
         if file.startswith('results_final_'):
             result_file = os.path.join(result_dir_exp, file)
             break
-    assert result_file, f'File {result_file} missing'
+    assert result_file or error_occurred, f'File {result_file} missing'
 
-    with open(result_file, 'r') as f:
-        result_data = json.load(f)
+    if result_file:
+        with open(result_file, 'r') as f:
+            result_data = json.load(f)
+        n_debugs_per_code = result_data['config']['agents']['code_generation']['args']['max_debug_steps'] + 1
+
+    else:
+        result_dir_str = str(result_dir_exp)
+        assert not isinstance(result_dir_str, PosixPath)
+        if 'full_5_3' in result_dir_str:
+            n_debugs_per_code = 2
+        elif 'full_3_6' in result_dir_str:
+            n_debugs_per_code = 5
+        elif 'full_no' in result_dir_str:
+            n_debugs_per_code = 5
+        elif 'baseline' in result_dir_str:
+            n_debugs_per_code = 5
+        elif 'silver' in result_dir_str:
+            n_debugs_per_code = 5
+        else:
+            raise ValueError
+
+    n_codes_per_run = n_debugs_per_code + 1
 
     ordered_code_files = []
     for file in all_exp_files:
@@ -40,10 +65,7 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
                 ordered_code_files.append((file_id, file))
 
     ordered_code_files.sort()
-    n_generated_codes = len(ordered_code_files)
-
-    n_debugs_per_code = result_data['config']['agents']['code_generation']['args']['max_debug_steps'] + 1
-    n_codes_per_run = n_debugs_per_code + 1
+    # n_generated_codes = len(ordered_code_files)
 
     ordered_codes_per_run = []
     ordered_codes_per_run_file_names = []
@@ -67,28 +89,51 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
 
     first_code_dict = None
 
+    found_empty_file = False
+    n_generated_codes = 0
     # Run each code on the validation tasks and get identify the best code based on the validation tasks
     for n_code_version, files_code_run in enumerate(ordered_codes_per_run_file_names):
-
+        if found_empty_file:
+            break
         prev_code = ''
         prev_val_metrics = None
+
         for debug_run, code_file in enumerate(files_code_run):
+            if found_empty_file:
+                break
             code_file_path = os.path.join(output_dir_exp, code_file)
 
             with open(code_file_path, 'r') as f:
                 content = f.read()
 
             python_code = postprocess_response(model_response=content)
-            if python_code == prev_code:
+            #assert python_code != '', f'File {code_file_path} does not contain a python program'
+            if python_code == '':
+                benchmark_name, domain_name = flags.env.split('-')
+                log_file = f'./data_analysis_results/runs_with_empty_outputs/{benchmark_name}_{domain_name}.json'
+                if os.path.exists(log_file):
+                    with open(log_file, 'r') as f:
+                        log = json.load(f)
+                else:
+                    log = dict()
+                log[code_file_path] = 'empty'
+                with open(log_file, 'w') as f:
+                    json.dump(log, f, indent=2)
+                found_empty_file = True
+
+            elif python_code == prev_code:
                 n_no_changes += 1
                 val_metrics = prev_val_metrics
-
             else:
                 val_metrics = run_evaluation(eval_tasks=validation_tasks,
                                              generalized_plan_code=python_code,
                                              flags=flags)
 
-            acc = val_metrics['accuracy']
+            if found_empty_file:
+                acc = 0
+                val_metrics = dict()
+            else:
+                acc = val_metrics['accuracy']
 
             current_code_dict = {
                 'accuracy_val': acc,
@@ -101,8 +146,10 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
             if acc > current_best_acc:
                 current_best_acc = acc
 
-            if n_code_version == 0 and debug_run == 0:
+            if first_code_dict is None:
                 first_code_dict = deepcopy(current_code_dict)
+
+            n_generated_codes += 1
 
     last_code_dict = deepcopy(current_code_dict)
     last_code_step = (last_code_dict['n_init_code'], last_code_dict['n_debug'])
@@ -153,7 +200,7 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
     last_code_dict['eval_metrics'] = eval_metrics_last
 
     eval_metrics_best_last = None
-    # TODO: remove again
+
     assert flags.eval_best_last
     if flags.eval_best_last:
         print('RUNNING ON EVAL TASKS')
@@ -172,7 +219,7 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
     best_code_dict_last['eval_metrics'] = eval_metrics_best_last
 
     eval_metrics_best_first = None
-    print(best_code_dict_last['eval_metrics'])
+    #print(best_code_dict_last['eval_metrics'])
     if flags.eval_best_first:
         print(flags.eval_best_first)
         # Do not re-run if identical
@@ -197,12 +244,18 @@ def run_evaluation_data_split_all_codes(output_dir_exp,
         'debugs_wo_changes': n_no_changes
     }
 
+    if found_empty_file or error_occurred:
+        error_d = {'accuracy': 0.0}
+    else:
+        error_d = None
+
     return_dict = {
         "overview": overview_dict,
         "last_result": last_code_dict,
         "best_result_first": best_code_dict_first,
         "best_result_last": best_code_dict_last,
-        "first_result": first_code_dict
+        "first_result": first_code_dict,
+        "last_result_incl_error": error_d
     }
 
     return return_dict
@@ -258,6 +311,8 @@ def run_all_evaluations_all_codes_json(benchmark_name: str,
         result_sub_dir = Path(experiments_results_folder) / exp_name / f'{benchmark_name}-{domain_name}'
 
         for time_stamped_folder in os.listdir(result_sub_dir):
+            if time_stamped_folder.startswith('.'):
+                continue
             t_stamped_out_path = output_sub_dir / str(time_stamped_folder)
             t_stamped_res_path = result_sub_dir / str(time_stamped_folder)
             for seed_folder in os.listdir(t_stamped_res_path):

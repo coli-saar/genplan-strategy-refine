@@ -3,9 +3,9 @@ from pathlib import Path
 from datetime import datetime
 from argparse import Namespace
 
-# TODO: replace YOUR_PATH
-FASTDOWNWARD = 'YOUR_PATH/fast-downward-22.12'
-VAL = 'YOUR_PATH/VAL'
+FASTDOWNWARD = ''
+VAL = ''
+
 
 _DIR = Path(__file__).parent.parent
 PDDL_DIR = _DIR / "data"

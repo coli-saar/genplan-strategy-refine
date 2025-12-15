@@ -4,7 +4,7 @@ from pathlib import Path
 from llm_models.llm_base_class import LLMModel
 from agents.agent_strategy_val_planbased import AgentStrategyValidatePlanBased
 from utils.tasks import TaskData, update_domain_strategy
-from utils.utils import create_prompt_template, log_agent_system_prompt, log_llm_interaction, parse_strategy_response
+from utils.helper import create_prompt_template, log_agent_system_prompt, log_llm_interaction, parse_strategy_response
 
 
 def str_to_class(class_name: str):
@@ -63,7 +63,7 @@ class AgentStrategyGen:
         self.llm_model = llm_model
         self.prompt_task_dict = prompt_task_dict
 
-        if version != 'nl':
+        if version != 'nl' and version != 'nl+pddl':
             raise not NotImplementedError
         self.version = version
 
@@ -161,6 +161,20 @@ class AgentStrategyGen:
                     plan = task_data.get_plan_nl()
                     problem_str += f'\n\nSolution:\n{plan}'
                 prompt_param['problems'].append(problem_str)
+                prompt_param['incl_pddl'] = False
+
+            elif self.version == 'nl+pddl':
+                prompt_param['domain_nl'] = task_data.get_domain_nl()
+                prompt_param['domain_pddl'] = task_data.get_domain_str()
+                problem_str_nl = task_data.get_problem_nl()
+                problem_str_pddl = task_data.get_problem_str()
+                if plans_available:
+                    plan = task_data.get_plan_nl()
+                    problem_str_nl += f'\n\nSolution:\n{plan}'
+                    plan_pddl = task_data.get_plan_str()
+                    problem_str_pddl += f'\n\nPlan:\n{plan_pddl}'
+                prompt_param['problems'].append({'nl': problem_str_nl, 'pddl': problem_str_pddl})
+                prompt_param['incl_pddl'] = True
 
         prompt_strategy = self.domain_strategy_prompt_template.render(**prompt_param)
         return prompt_strategy

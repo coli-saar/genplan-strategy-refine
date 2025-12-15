@@ -1,0 +1,48 @@
+{% block prompt -%}
+
+You are a brilliant assistant for generating python code that is able to solve all instances of a game.
+
+Here is the description of how the game works:
+"""
+{{ domain_descript }}
+"""
+
+Here is a strategy for solving individual task instances of the game.
+"""
+{{ strategy }}
+"""
+
+I want to implement the strategy as a Python function that does not use any search.
+
+The main function should be of the form
+```python
+from typing import List, Tuple, Set
+def generate_solution(objects: {{ object_type_str }}, init: Set[Tuple], goal: Set[Tuple]) -> List[str]:
+# Your code here
+return solution
+```
+
+Input restrictions:
+- {{ object_input }}
+- `init` is a set of the facts that are true in the initial state and that are represented as tuples of fact names and the objects to which it applies (e.g., ('fact_1', 'object_1', ...))
+- `goal` is the set of goal facts represented in the same way
+The possible facts for the initial and goal state are:
+{{ predicate_hint }}
+
+Output restrictions:
+- `solution` is a list of actions that transform the initial state into the goal. Each action is represented as a string (e.g. ['(action_1 object_1)', '(action_2 object2 object 3)', ...])
+The valid actions are:
+{{ action_hint }}
+where tokens starting with '?' are placeholders for the actual objects.
+
+{% if single %}Here is one example:{% else %}Here are some examples:{% endif %}
+{% for ex in examples %}
+{{ ex }}
+
+{% endfor %}
+
+Please provide me the python code for the strategy.
+Only include the code for the main function and any required helper functions. Do NOT include any examples or actual calls of the function.
+You cannot use any external libraries or modules.
+
+{%- endblock prompt %}

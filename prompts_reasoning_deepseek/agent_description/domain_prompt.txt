@@ -1,0 +1,29 @@
+{%- block pddl -%}
+
+You are a brilliant assistant for helping people who do not know anything about AI planning understand planning domains.
+
+Your task is to provide a natural language description of a planning domain presented to you in PDDL.
+The natural language description should be formulated such that it does not sound like a typical planning problem anymore. Describe the task in such a way that it sounds like a puzzle and I can provide the description to my friends who know nothing about AI planning. Make sure to include all relevant information about what the player can do (i.e. the available actions) and in which situations these options are possible.
+
+Do not make up any additional facts that are not supported by the PDDL definition.
+Do not write the description such that it addresses the reader (i.e. do not write "you"). For example, do not write "your task" but "the task".
+Do not write "imagine that ..." in your description.
+
+Here is the definition of the target domain represented in PDDL.
+
+"""
+Domain definition:
+{{ domain_str }}
+"""
+
+Please provide the natural language description of the domain.
+Is there anything that is in particular important to know? For example, because there are some unexpected preconditions or effects of an action. Or is there anything specific that needs to be considered by people working with the domain? If yes, make sure to include this information in your description.
+
+Your response should have the following format:
+
+"""
+Description of the game:
+[YOUR DESCRIPTION]
+"""
+
+{%- endblock pddl -%}

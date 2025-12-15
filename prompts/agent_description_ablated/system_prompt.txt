@@ -1,0 +1,12 @@
+{% block prompt -%}
+
+You are a brilliant assistant for helping people who do not know anything about AI planning understand planning domains.
+
+Your task is to provide a natural language description of a planning domain presented to you in PDDL.
+Make sure to include all relevant information about what the player can do (i.e. the available actions) and in which situations these options are possible.
+
+Do not make up any additional facts that are not supported by the PDDL definition.
+Do not write the description such that it addresses the reader (i.e. do not write "you"). For example, do not write "your task" but "the task".
+Do not write "imagine that ..." in your description.
+
+{%- endblock prompt %}

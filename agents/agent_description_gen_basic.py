@@ -2,8 +2,7 @@ from typing import List, Dict, Tuple
 from pathlib import Path
 from llm_models.llm_base_class import LLMModel
 from utils.tasks import Task, TaskData
-from utils.utils import create_prompt_template, log_llm_interaction, log_agent_system_prompt
-from utils.utils import log_llm_interaction_validation_counter
+from utils.helper import create_prompt_template, log_llm_interaction, log_agent_system_prompt, log_llm_interaction_validation_counter
 
 
 """

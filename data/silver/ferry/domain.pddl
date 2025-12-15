@@ -9,7 +9,7 @@
 
    (:action sail
        :parameters  (?from ?to)
-       :precondition (and (not-eq ?from ?to)
+       :precondition (and (not-eq ?from ?to) 
                           (location ?from) (location ?to) (at-ferry ?from))
        :effect (and  (at-ferry ?to)
 		     (not (at-ferry ?from))))
@@ -20,7 +20,7 @@
        :precondition  (and  (car ?car) (location ?loc)
 			    (at ?car ?loc) (at-ferry ?loc) (empty-ferry))
        :effect (and (on ?car)
-		    (not (at ?car ?loc))
+		    (not (at ?car ?loc)) 
 		    (not (empty-ferry))))
 
    (:action debark

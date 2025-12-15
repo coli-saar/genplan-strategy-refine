@@ -3,7 +3,7 @@ from copy import deepcopy
 from jinja2 import Template
 from llm_models.create_llm import create_llm_model
 from llm_models.llm_base_class import LLMModel
-from utils.utils import create_prompt_template
+from utils.helper import create_prompt_template
 
 
 def _create_and_init_model(config_dict: dict, flags: dict) -> LLMModel:

@@ -7,7 +7,7 @@ from agents.agent_code_gen_basic import AgentCodeGenerationBasic, postprocess_re
 from agents.validator_feedback_gen import GenPlanValidator
 from agents.agent_strategy_val_planbased import AgentStrategyValidatePlanBased
 from utils.tasks import TaskData
-from utils.utils import create_prompt_template
+from utils.helper import create_prompt_template
 
 
 def str_to_class(class_name: str):

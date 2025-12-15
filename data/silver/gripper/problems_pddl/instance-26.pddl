@@ -14,6 +14,8 @@
 	ball18
 	ball19
 	ball2
+	ball20
+	ball21
 	ball3
 	ball4
 	ball5
@@ -60,7 +62,6 @@
 	room4
 	room40
 	room41
-	room42
 	room5
 	room6
 	room7
@@ -68,26 +69,28 @@
 	room9
   )
   (:init 
-	(at ball0 room39)
-	(at ball10 room25)
-	(at ball11 room6)
-	(at ball12 room24)
-	(at ball13 room15)
-	(at ball14 room37)
-	(at ball15 room41)
-	(at ball16 room17)
-	(at ball17 room16)
-	(at ball18 room5)
-	(at ball19 room19)
-	(at ball1 room29)
-	(at ball2 room1)
-	(at ball3 room23)
-	(at ball4 room8)
-	(at ball5 room0)
-	(at ball6 room23)
-	(at ball7 room37)
-	(at ball8 room26)
-	(at ball9 room25)
+	(at ball0 room22)
+	(at ball10 room18)
+	(at ball11 room14)
+	(at ball12 room14)
+	(at ball13 room20)
+	(at ball14 room7)
+	(at ball15 room27)
+	(at ball16 room15)
+	(at ball17 room23)
+	(at ball18 room11)
+	(at ball19 room13)
+	(at ball1 room15)
+	(at ball20 room29)
+	(at ball21 room31)
+	(at ball2 room15)
+	(at ball3 room28)
+	(at ball4 room7)
+	(at ball5 room27)
+	(at ball6 room24)
+	(at ball7 room24)
+	(at ball8 room12)
+	(at ball9 room13)
 	(at-robby room0)
 	(ball ball0)
 	(ball ball10)
@@ -101,6 +104,8 @@
 	(ball ball18)
 	(ball ball19)
 	(ball ball1)
+	(ball ball20)
+	(ball ball21)
 	(ball ball2)
 	(ball ball3)
 	(ball ball4)
@@ -149,7 +154,6 @@
 	(room room3)
 	(room room40)
 	(room room41)
-	(room room42)
 	(room room4)
 	(room room5)
 	(room room6)
@@ -158,20 +162,16 @@
 	(room room9)
   )
   (:goal (and
-	(at ball3 room38)
-	(at ball8 room36)
-	(at ball16 room1)
-	(at ball19 room36)
-	(at ball9 room5)
-	(at ball17 room5)
-	(at ball5 room38)
-	(at ball2 room35)
-	(at ball4 room24)
-	(at ball12 room15)
-	(at ball6 room20)
-	(at ball14 room9)
-	(at ball0 room4)
-	(at ball10 room24)
-	(at ball15 room30)
-	(at ball7 room2)))
+	(at ball12 room21)
+	(at ball3 room34)
+	(at ball7 room32)
+	(at ball18 room35)
+	(at ball5 room41)
+	(at ball13 room39)
+	(at ball8 room27)
+	(at ball11 room10)
+	(at ball15 room4)
+	(at ball14 room17)
+	(at ball6 room3)
+	(at ball21 room37)))
 )

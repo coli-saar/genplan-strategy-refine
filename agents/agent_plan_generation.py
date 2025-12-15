@@ -3,7 +3,7 @@ from typing import Union
 from collections import defaultdict
 from llm_models.llm_base_class import LLMModel
 from utils.tasks import TaskData
-from utils.utils import create_prompt_template, run_validator, log_llm_interaction, log_llm_interaction_validation_counter
+from utils.helper import create_prompt_template, run_validator, log_llm_interaction, log_llm_interaction_validation_counter
 from utils.paths import get_llm_gen_plan_dir
 
 
@@ -67,12 +67,15 @@ class AgentPlanGen:
                             'domain_strategy': self.task_data.get_strategy_domain(),
                             'problem_descrip': self.task_data.get_problem_nl(),
                             'problem_pddl': None,
+                            'incl_pddl': False,
                             'action_hint': action_hint}
 
-        elif self.input_version == 'nl_pddl':
+        elif self.input_version == 'nl+pddl':
             prompt_param = {'domain_descrip': self.task_data.get_domain_nl(),
+                            'domain_pddl': self.task_data.get_domain_str(),
                             'domain_strategy': self.task_data.get_strategy_domain(),
                             'problem_descrip': self.task_data.get_problem_nl(),
+                            'incl_pddl': True,
                             'problem_pddl': self.task_data.get_problem_str(),
                             'action_hint': action_hint}
         else:

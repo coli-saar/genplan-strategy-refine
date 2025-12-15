@@ -1,0 +1,49 @@
+{%- block pddl -%}
+
+Here is the definition of the target domain and some problem instances of the domain both represented in PDDL.
+
+"""
+Domain definition:
+{{ domain_str }}
+"""
+
+{% for prob in problems %}
+"""
+{{ prob }}
+"""
+
+{% endfor %}
+
+Please provide the natural language description of the domain.
+
+Additionally, write a short description for each of the specific problem instances provided. The description should be easy to read for people who do not know any PDDL. It should consist of natural language, but it does not need to be a paragraph of text. You can structure the description such that it is easy to process, e.g. you can express (parts of) the initial state in an ascii-like representation.
+
+{% if plan_str %} Also, provide a description of the presented example solution plan. {% endif %}
+
+Your response should have the following format:
+
+"""
+Description of the game:
+[YOUR DESCRIPTION]
+"""
+
+"""
+Problem description 1:
+[YOUR DESCRIPTION]
+
+{%- if incl_plans %}
+
+Plan description 1:
+[YOUR DESCRIPTION]
+{% endif %}
+"""
+
+"""
+...
+"""
+
+
+Make sure that the problem description mentions all objects that are part of the problem instance.
+Do not include anything else than the descriptions themselves between the quotation marks.
+
+{%- endblock pddl -%}

@@ -1,0 +1,152 @@
+{
+  "experiment_id": "full_no_code_sr",
+  "p_version": "qual_check",
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "num_prompt_tasks": 2,
+  "num_debug_tasks": 2,
+  "num_validation_tasks": 4,
+  "num_eval_tasks": 25,
+  "save_path": "outputs_llama",
+  "results_dir": "results_llama",
+  "prompt_dir": "prompts",
+  "eval_first_code": false,
+  "eval_last_code": false,
+  "eval_best_code": false,
+  "stop_on_val": true,
+  "llm_configs": {
+    "default": {
+      "examples_chat": false,
+      "system_prompt": null,
+      "llm_parameter": {
+        "model_type": "sglang",
+        "model_path": "/scratch/common_models/Llama-3.3-70B-Instruct",
+        "temperature": 0.7,
+        "max_tokens": 20000,
+        "top_p": 0.8,
+        "min_p": 0,
+        "top_k": 20,
+        "presence_penalty": 0,
+        "max_history": null,
+        "cache_directory": "default",
+        "seed": 1
+      }
+    }
+  },
+  "agents": {
+    "description_generation": {
+      "name": "AgentDescriptionGen",
+      "llm_conf_name": "default",
+      "system_prompt": "agent_description/system_prompt.txt",
+      "args": {
+        "domain_prompt_file": "agent_description/domain_prompt.txt",
+        "problem_prompt_file": "agent_description/problem_prompt.txt",
+        "incl_plans": false
+      }
+    },
+    "strategy_generation": {
+      "name": "AgentStrategyGenDebuggingPlanGenHist",
+      "llm_conf_name": "default",
+      "system_prompt": "agent_strategy_gen_pseudo/system_prompt.txt",
+      "debug_llm_conf_name": "default",
+      "system_prompt_debug": "agent_strategy_gen_pseudo/system_prompt.txt",
+      "args": {
+        "domain_strategy_prompt_file": "agent_strategy_gen_pseudo/domain_strategy_prompt_file.txt",
+        "version": "nl",
+        "reflection_prompt_file": "agent_strategy_gen_pseudo/reflection_prompt_file.txt",
+        "refine_strategy_prompt_file": "agent_strategy_gen_pseudo/refine_strategy_prompt_file.txt",
+        "max_debug_steps": 5,
+        "select_best_strat": true,
+        "plan_based_val_args": {
+          "name": "AgentStrategyValidatePlanBased",
+          "llm_conf_name": "default",
+          "args": {
+            "typed_hints": true,
+            "plan_gen_args": {
+              "name": "AgentPlanGen",
+              "llm_conf_name": "default",
+              "system_prompt": "agent_plan_gen/system_prompt.txt",
+              "args": {
+                "plan_gen_prompt_file": "agent_plan_gen/generation_nl_prompt.txt",
+                "increase_counter": false
+              }
+            },
+            "feedback_gen_args": {
+              "pddl_env_name": "RawPDDLEnvironment",
+              "pddl_env_args": {}
+            }
+          }
+        }
+      }
+    },
+    "code_generation": {
+      "name": "AgentCodeGenerationBasicMultiple",
+      "llm_conf_name": "default",
+      "system_prompt": "agent_code_gen/system_prompt.txt",
+      "args": {
+        "code_gen_prompt_file": "agent_code_gen/code_prompt.txt",
+        "refine_code_prompt_file": "agent_code_gen_basic/refine_code_prompt.txt",
+        "use_llm_gen_tasks": false,
+        "typed_hints": true,
+        "force_examples": true,
+        "include_plans": true,
+        "include_nl": false,
+        "max_debug_steps": 5,
+        "number_of_examples": 1,
+        "number_parallel_codes": 3
+      }
+    },
+    "strategy_final_validation": {
+      "name": "AgentStrategyValidatePlanBased",
+      "llm_conf_name": "default",
+      "max_iter": 1,
+      "system_prompt": "agent_strategy_val_planbased/system_prompt.txt",
+      "args": {
+        "plan_gen_prompt_file": "agent_strategy_val_planbased/plan_gen_prompt.txt",
+        "threshold": 0.0,
+        "typed_hints": true
+      }
+    },
+    "plan_generation": {
+      "name": "AgentPlanGenVal",
+      "llm_conf_name": "default",
+      "system_prompt": "agent_plan_gen/system_prompt.txt",
+      "args": {
+        "plan_gen_prompt_file": "agent_plan_gen/generation_pddl_prompt.txt",
+        "typed_hints": true,
+        "validation_args": {
+          "feedback_generator_name": "BasicFeedbackGenerator",
+          "feedback_gen_args": {
+            "pddl_env_name": "RawPDDLEnvironment",
+            "pddl_env_args": {}
+          }
+        }
+      }
+    }
+  },
+  "validator": {
+    "name": "GenPlanValidator",
+    "args": {
+      "include_pos_results": true,
+      "randomize_input_order": true,
+      "n_randomizations": 4,
+      "feedback_gen_name": "CodeFeedbackGenerator",
+      "feedback_gen_args": {
+        "pddl_env_name": "RawPDDLEnvironment",
+        "pddl_env_args": {},
+        "format_plan": true,
+        "enum_plan": true
+      }
+    }
+  },
+  "inference_feedback_generator": {
+    "name": "CodeFeedbackGenerator",
+    "args": {
+      "pddl_env_name": "RawPDDLEnvironment",
+      "pddl_env_args": {}
+    }
+  }
+}

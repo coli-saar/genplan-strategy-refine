@@ -1,0 +1,14 @@
+{% block prompt -%}
+
+This plan is incorrect because of the following issues:
+
+{{ feedback }}
+
+
+Please help me to understand why this mistake happened.
+Tell me
+1) which specific part of the strategy lead to the mistake and
+2) why this part of the strategy is not adequate
+Do not provide any revisions yet but enough details to understand why the strategy does not work for the task without revisions.
+
+{%- endblock prompt %}

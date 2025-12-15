@@ -1,0 +1,22 @@
+{%- block pddl -%}
+
+Here is the definition of the target domain represented in PDDL.
+
+"""
+Domain definition:
+{{ domain_str }}
+"""
+
+Please provide the natural language description of the domain.
+Is there anything that is in particular important to know? For example, because there are some unexpected preconditions or effects of an action. Or is there anything specific that needs to be considered by people working with the domain? If yes, make sure to include this information in your description.
+
+Make sure that your description includes the exact names of the actions and predicates.
+
+Your response should have the following format:
+
+"""
+Description of the game:
+[YOUR DESCRIPTION]
+"""
+
+{%- endblock pddl -%}

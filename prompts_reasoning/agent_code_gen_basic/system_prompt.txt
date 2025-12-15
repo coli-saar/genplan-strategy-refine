@@ -1,0 +1,5 @@
+{% block prompt -%}
+
+You are a brilliant assistant for generating python code that is able to solve all instances of a game.
+
+{%- endblock prompt %}

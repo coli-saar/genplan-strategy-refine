@@ -29,6 +29,11 @@
 	loc-31 - loc
 	loc-32 - loc
 	loc-33 - loc
+	loc-34 - loc
+	loc-35 - loc
+	loc-36 - loc
+	loc-37 - loc
+	loc-38 - loc
 	loc-4 - loc
 	loc-5 - loc
 	loc-6 - loc
@@ -53,10 +58,6 @@
 	paper-22 - paper
 	paper-23 - paper
 	paper-24 - paper
-	paper-25 - paper
-	paper-26 - paper
-	paper-27 - paper
-	paper-28 - paper
 	paper-3 - paper
 	paper-4 - paper
 	paper-5 - paper
@@ -77,18 +78,21 @@
 	(safe loc-15)
 	(safe loc-16)
 	(safe loc-17)
+	(safe loc-19)
 	(safe loc-1)
 	(safe loc-20)
+	(safe loc-21)
+	(safe loc-22)
 	(safe loc-23)
-	(safe loc-24)
-	(safe loc-25)
 	(safe loc-26)
-	(safe loc-27)
+	(safe loc-28)
+	(safe loc-29)
 	(safe loc-30)
 	(safe loc-32)
-	(safe loc-5)
+	(safe loc-34)
+	(safe loc-3)
 	(safe loc-7)
-	(safe loc-9)
+	(safe loc-8)
 	(unpacked paper-0)
 	(unpacked paper-10)
 	(unpacked paper-11)
@@ -106,10 +110,6 @@
 	(unpacked paper-22)
 	(unpacked paper-23)
 	(unpacked paper-24)
-	(unpacked paper-25)
-	(unpacked paper-26)
-	(unpacked paper-27)
-	(unpacked paper-28)
 	(unpacked paper-2)
 	(unpacked paper-3)
 	(unpacked paper-4)
@@ -126,24 +126,27 @@
 	(wantspaper loc-15)
 	(wantspaper loc-16)
 	(wantspaper loc-17)
+	(wantspaper loc-19)
 	(wantspaper loc-1)
 	(wantspaper loc-20)
+	(wantspaper loc-21)
+	(wantspaper loc-22)
 	(wantspaper loc-23)
-	(wantspaper loc-24)
-	(wantspaper loc-25)
 	(wantspaper loc-26)
-	(wantspaper loc-27)
+	(wantspaper loc-28)
+	(wantspaper loc-29)
 	(wantspaper loc-30)
 	(wantspaper loc-32)
-	(wantspaper loc-5)
+	(wantspaper loc-34)
+	(wantspaper loc-3)
 	(wantspaper loc-7)
-	(wantspaper loc-9)
+	(wantspaper loc-8)
   )
   (:goal (and
 	(satisfied loc-1)
-	(satisfied loc-5)
+	(satisfied loc-3)
 	(satisfied loc-7)
-	(satisfied loc-9)
+	(satisfied loc-8)
 	(satisfied loc-10)
 	(satisfied loc-11)
 	(satisfied loc-12)
@@ -152,12 +155,15 @@
 	(satisfied loc-15)
 	(satisfied loc-16)
 	(satisfied loc-17)
+	(satisfied loc-19)
 	(satisfied loc-20)
+	(satisfied loc-21)
+	(satisfied loc-22)
 	(satisfied loc-23)
-	(satisfied loc-24)
-	(satisfied loc-25)
 	(satisfied loc-26)
-	(satisfied loc-27)
+	(satisfied loc-28)
+	(satisfied loc-29)
 	(satisfied loc-30)
-	(satisfied loc-32)))
+	(satisfied loc-32)
+	(satisfied loc-34)))
 )

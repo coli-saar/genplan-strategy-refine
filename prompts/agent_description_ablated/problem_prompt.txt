@@ -1,0 +1,35 @@
+{%- block pddl -%}
+
+Now write a short description of the following specific problem instance of the domain. It should consist of natural language, but it does not need to be a paragraph of text. You can structure the description such that it is easy to process, e.g. you can express (parts of) the initial state in an ascii-like representation.
+
+{% if plan_str %} Additionally, provide a description of the presented example solution plan. {% endif %}
+
+"""
+Problem instance:
+{{ problem_str }}
+
+{%- if plan_str %}
+
+Plan:
+{{ plan_str }}
+{%- endif %}
+"""
+
+Please provide the problem description in the following format:
+"""
+Problem description:
+[YOUR DESCRIPTION]
+"""
+{% if plan_str %}
+
+Please provide the description of the solution in the following format:
+"""
+Plan description:
+[YOUR DESCRIPTION]
+"""
+{% endif %}
+
+Make sure that the problem description mentions all objects that are part of the problem instance and explicitly includes the predicate names.
+Do not include anything else than the description itself between the quotation marks.
+
+{%- endblock pddl -%}

@@ -18,13 +18,6 @@ Task description:
 {{ problem_descrip }}
 """
 
-{%- if problem_pddl %}
-And this is the formal definition of the task instance in the PDDL language:
-"""
-{{ problem_pddl }}
-"""
-{% endif -%}
-
 Please provide the solution derived by applying the strategy to the task instance.
 Think about the required actions and follow the strategy step-by-step. At the end provide the complete solution in the following format:
 """

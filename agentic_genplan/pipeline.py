@@ -4,7 +4,7 @@ import json
 import time
 from typing import Dict, List
 from copy import copy
-from utils.utils import convert_path2str, create_ordered_results_data
+from utils.helper import convert_path2str, create_ordered_results_data
 from utils.tasks import TaskData, create_tasks_dict
 from utils.paths import create_log_dirname, get_res_file_name, get_benchmark_dir, get_llm_gen_dir
 from agentic_genplan.create_tasks import create_tasks
@@ -18,6 +18,7 @@ from agents.agent_code_gen_multiple import AgentCodeGenerationMultiple
 from agents.agent_code_gen_basic_multiple import AgentCodeGenerationBasicMultiple
 from agents.agent_description_gen import AgentDescriptionGen, create_copy_for_new_tasks
 from agents.agent_description_gen_basic import AgentDescriptionGenBasic
+from agents.agent_description_gen_mockup import AgentDescriptionPDDL
 from agents.agent_strategy_gen import AgentStrategyGen
 from agents.agent_strategy_gen_w_debugging_prev_hist import AgentStrategyGenDebuggingPlanGenHist
 from agents.agent_strategy_val_planbased import AgentStrategyValidatePlanBased
@@ -46,6 +47,7 @@ def run_pipeline(seed_value: int,
 
     benchmark_name, domain_name = FLAGS.env.split('-')
     benchmark_dir = get_benchmark_dir(benchmark_name=benchmark_name, domain_name=domain_name)
+    print(benchmark_dir)
 
     llm_gen_dir = get_llm_gen_dir(
             output_dir=FLAGS.save_path,
@@ -61,7 +63,6 @@ def run_pipeline(seed_value: int,
     )
 
     prompt_task_dict = create_tasks_dict(tasks=prompt_tasks)
-
     agent_configs = FLAGS.agents
     flags_dict = deepcopy(FLAGS.__dict__)
     # set the directory for logging
@@ -378,8 +379,6 @@ def run_original_pipeline(agent_configs: dict,
     agent_strategy_generation.generate_domain_strategy()
 
     assert prompt_task_dict == agent_strategy_generation.prompt_task_dict
-
-    plan_gen_config = agent_configs.get('plan_generation', None)
 
 
 def run_check_strat_pipeline(agent_configs: dict,

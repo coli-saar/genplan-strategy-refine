@@ -1,28 +1,39 @@
 # Improved Generalized Planning with LLMs through Strategy Refinement and Reflection
 
+**News**: new version of the paper with results from different LLMs is now available here: 
+
 Code and data for the paper [Improved Generalized Planning with LLMs through Strategy Refinement and Reflection](https://www.arxiv.org/abs/2508.13876). <br>
-To be presented at the [Workshop on Planning in the Era of LLMs](https://llmforplanning.github.io/) @ ICAPS25
+The paper was presented at the [Workshop on Planning in the Era of LLMs](https://llmforplanning.github.io/) @ ICAPS25
 
 See also the [project website](https://coli-saar.github.io/genplanstrategyrefine) for an overview.
 
-**Note**: the code base is currently undergoing some extensions. The exact code base used for the LLM4Plan Workshop paper is available as a release (v1.0).
-
 ### Prerequisites
-Current version of the code is set up for OpenAI models and tested with OpenAI non-reasoning models. We will upload the files for using open-source models soon. 
+Current version of the code is set up for 
+- OpenAI models and tested with OpenAI non-reasoning models
+- DeepSeek reasoning models
+- Both reasoning and non-reasoning models where a local model is run as a server using sglang
+
+Requires
+- requirements specified in requirements.txt
+- cuda
+- sglang
 
 Create a file 'set_env.py' in the utils folder 
 ```
 import os
 
-
 def set_env_vars():
     os.environ['OPENAI_API_KEY'] = 
+    os.environ['DEEPSEEK_API_KEY']
 ```
 
 Code tested with Python 3.10 on Linux
 
 Requires a compiled version of the [plan validator VAL](https://github.com/KCL-Planning/VAL) and [fastdownward](https://www.fast-downward.org/latest/).<br>
 Set the `FASTDOWNWARD` and `VAL` path variables in the ./utils/paths.py script accordingly (line 7-8)
+
+## Data Availability
+All data will be made available in a form that prevents crawling the data easily for training new LLMs. The exact way is not decided yet. To get access to the data in the meantime contact kstein@coli.uni-saarland.de
 
 ## How to run
 
@@ -72,4 +83,17 @@ See ./eval_configs/eval_config_all.json
 - split_file: name of the .json file in the data directory which specifies which tasks to run the evaluation on, 
 - eval_split_name: the key to extract from the json file
 - val_split_file: the name of the .json file that specified the data splits for generating the programs
+
+### Use generalized plan to create a plan for a specific instance
+
+`python generate_plan_for_instance.py [-t timeout] [-p] domain_file instance_file code_file output_path log_path`
+- timeout: Set a specific timeout, default is 45 (given in seconds)
+- -p, --print: Set this flag to print the log file contents to console
+- domain_file: Path to the domain file for the relevant domain
+- instance_file: Path to the problem instance file
+- code_file: Path to the file with the generated python program
+- output_path: Filepath to store the plan at
+- log_path: Filepath to store the log notes at
+
+
 

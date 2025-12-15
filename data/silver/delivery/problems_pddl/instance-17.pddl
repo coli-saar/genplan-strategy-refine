@@ -27,7 +27,6 @@
 	loc-3 - loc
 	loc-30 - loc
 	loc-31 - loc
-	loc-32 - loc
 	loc-4 - loc
 	loc-5 - loc
 	loc-6 - loc
@@ -55,7 +54,12 @@
 	paper-25 - paper
 	paper-26 - paper
 	paper-27 - paper
+	paper-28 - paper
+	paper-29 - paper
 	paper-3 - paper
+	paper-30 - paper
+	paper-31 - paper
+	paper-32 - paper
 	paper-4 - paper
 	paper-5 - paper
 	paper-6 - paper
@@ -75,6 +79,7 @@
 	(safe loc-15)
 	(safe loc-16)
 	(safe loc-17)
+	(safe loc-18)
 	(safe loc-19)
 	(safe loc-1)
 	(safe loc-20)
@@ -86,13 +91,12 @@
 	(safe loc-26)
 	(safe loc-27)
 	(safe loc-28)
+	(safe loc-29)
 	(safe loc-2)
 	(safe loc-30)
-	(safe loc-31)
-	(safe loc-32)
 	(safe loc-3)
 	(safe loc-4)
-	(safe loc-7)
+	(safe loc-6)
 	(safe loc-8)
 	(safe loc-9)
 	(unpacked paper-0)
@@ -115,7 +119,12 @@
 	(unpacked paper-25)
 	(unpacked paper-26)
 	(unpacked paper-27)
+	(unpacked paper-28)
+	(unpacked paper-29)
 	(unpacked paper-2)
+	(unpacked paper-30)
+	(unpacked paper-31)
+	(unpacked paper-32)
 	(unpacked paper-3)
 	(unpacked paper-4)
 	(unpacked paper-5)
@@ -131,6 +140,7 @@
 	(wantspaper loc-15)
 	(wantspaper loc-16)
 	(wantspaper loc-17)
+	(wantspaper loc-18)
 	(wantspaper loc-19)
 	(wantspaper loc-1)
 	(wantspaper loc-20)
@@ -142,13 +152,12 @@
 	(wantspaper loc-26)
 	(wantspaper loc-27)
 	(wantspaper loc-28)
+	(wantspaper loc-29)
 	(wantspaper loc-2)
 	(wantspaper loc-30)
-	(wantspaper loc-31)
-	(wantspaper loc-32)
 	(wantspaper loc-3)
 	(wantspaper loc-4)
-	(wantspaper loc-7)
+	(wantspaper loc-6)
 	(wantspaper loc-8)
 	(wantspaper loc-9)
   )
@@ -157,7 +166,7 @@
 	(satisfied loc-2)
 	(satisfied loc-3)
 	(satisfied loc-4)
-	(satisfied loc-7)
+	(satisfied loc-6)
 	(satisfied loc-8)
 	(satisfied loc-9)
 	(satisfied loc-10)
@@ -168,6 +177,7 @@
 	(satisfied loc-15)
 	(satisfied loc-16)
 	(satisfied loc-17)
+	(satisfied loc-18)
 	(satisfied loc-19)
 	(satisfied loc-20)
 	(satisfied loc-21)
@@ -178,7 +188,6 @@
 	(satisfied loc-26)
 	(satisfied loc-27)
 	(satisfied loc-28)
-	(satisfied loc-30)
-	(satisfied loc-31)
-	(satisfied loc-32)))
+	(satisfied loc-29)
+	(satisfied loc-30)))
 )

@@ -2,7 +2,7 @@ from typing import List
 import time
 from argparse import Namespace
 from ast import literal_eval
-from utils.tasks import Task
+from utils.tasks import Task, TaskSimple
 from utils.metrics import GENPLAN_ERROR_TYPES
 from agents.gen_plan_execution import GeneralizedPlan, CodeExecutor
 from agents.validator_feedback_gen import get_randomized_inputs
@@ -73,6 +73,13 @@ def run_evaluation(eval_tasks: List[Task],
         task_metrics['success'] = success
         task_metrics['feedback'] = feedback
 
+        conversion_start = time.perf_counter()
+        task_2 = TaskSimple(domain_file_path=eval_task.domain_file_path,
+                            problem_file_path=eval_task.problem_file_path,
+                            print_paths=False)
+        conversion_time = time.perf_counter() - conversion_start
+        task_metrics['total_time'] = task_metrics['run_time'] + conversion_time
+
         if 'The code was interrupted' in feedback:
             #assert task_metrics['python-exception'] == 1
             task_metrics['python-exception'] = 0
@@ -99,7 +106,7 @@ def run_evaluation(eval_tasks: List[Task],
     eval_metrics['accuracy'] = round(num_successes / num_eval, 3)
     eval_metrics['solved_tasks'] = solved_tasks
     eval_metrics['not_solved_tasks'] = not_solved_tasks
-
+    print(eval_metrics)
     return eval_metrics
 
 

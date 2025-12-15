@@ -1,0 +1,41 @@
+{%- block prompt -%}
+You are a brilliant assistant for helping people who are trying to come up with a plan for solving a task instance from a game. There exists a strategy that needs to be followed to reach the goal.
+
+Here is the description of how the game works:
+"""
+Description of the game:
+{{ domain_descrip }}
+"""
+
+Here is the strategy for solving the game that should be followed to derive the goal:
+"""
+Strategy:
+{{ domain_strategy }}
+"""
+
+And here is the task instance that needs to be solved:
+"""
+Task description:
+{{ problem_descrip }}
+"""
+
+Please provide the solution derived by applying the strategy to the task instance.
+Follow the strategy step-by-step. Provide the solution in the following format:
+"""
+Solution:
+(action_1)
+(action_2)
+...
+(action_X)
+"""
+
+where valid actions are:
+{{ action_hint }}
+
+If the goal is already satisfied and no actions are required then reply with:
+"""
+Solution:
+
+"""
+
+{%- endblock prompt -%}

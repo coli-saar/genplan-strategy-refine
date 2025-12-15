@@ -107,9 +107,16 @@ class AgentStrategyGenDebuggingPlanGenHist(AgentStrategyGenDebugging):
         failed_problem_name = self.last_failed_task_name
         plan_gen_hist = self.agent_planbased_val.plan_gen_llm_hists[failed_problem_name]
 
-        if len(plan_gen_hist) != 3:
-            print(plan_gen_hist)
-        assert len(plan_gen_hist) == 3
+        contains_system_prompt = True if plan_gen_hist[0]['role'] == 'system' else False
+
+        if contains_system_prompt:
+            if len(plan_gen_hist) != 3:
+                print(plan_gen_hist)
+            assert len(plan_gen_hist) == 3
+        else:
+            if len(plan_gen_hist) != 2:
+                print(plan_gen_hist)
+            assert len(plan_gen_hist) == 2
         self.llm_model_debug.update_history(new_history=plan_gen_hist)
 
         response, _ = self.llm_model_debug.generate(user_message=prompt)

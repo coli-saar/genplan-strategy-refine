@@ -1,0 +1,5 @@
+{% block prompt -%}
+
+You are a brilliant assistant for helping people who are trying to come up with a plan for solving a task instance from a game. There exists a strategy that needs to be followed to reach the goal.
+
+{%- endblock prompt %}
