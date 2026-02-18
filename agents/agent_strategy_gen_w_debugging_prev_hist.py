@@ -13,8 +13,7 @@ def str_to_class(class_name: str):
 
 
 class AgentStrategyGenDebuggingPlanGenHist(AgentStrategyGenDebugging):
-    # what about plan_based_val_args: should work in the same way as without debugging
-    # what about debug_tasks: can remove them; are part of the plan_based_val_args
+
     def __init__(self,
                  llm_model: LLMModel,
                  llm_model_debug: LLMModel,

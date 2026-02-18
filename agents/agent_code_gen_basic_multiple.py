@@ -102,6 +102,8 @@ class AgentCodeGenerationBasicMultiple(AgentCodeGenerationBasic):
             if self.last_validator_debug.plan_succeeded_all:
                 break
 
+            counter += 1
+
             # reset all variables for the next round
             self.reset_for_next_run()
 

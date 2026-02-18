@@ -15,7 +15,7 @@ class Task:
     def __init__(self,
                  domain_file_path: str,
                  problem_file_path: str,
-                 print_paths: bool = True):
+                 print_paths: bool = False):
         if print_paths:
             print(domain_file_path)
             print(problem_file_path)

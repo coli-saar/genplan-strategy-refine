@@ -357,10 +357,9 @@ def run_validator(task: Task, plan: str) -> bool:
     # return if the plan is valid
 
     val = os.environ.get('VAL')
+    assert os.path.exists(val)
     # split plan into list of actions
     actions = plan.split('\n')
-
-    #
 
     # save them in a temporary file
     os.makedirs(TEMP_DIR, exist_ok=True)

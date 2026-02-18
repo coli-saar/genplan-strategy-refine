@@ -18,7 +18,6 @@ from agents.agent_code_gen_multiple import AgentCodeGenerationMultiple
 from agents.agent_code_gen_basic_multiple import AgentCodeGenerationBasicMultiple
 from agents.agent_description_gen import AgentDescriptionGen, create_copy_for_new_tasks
 from agents.agent_description_gen_basic import AgentDescriptionGenBasic
-from agents.agent_description_gen_mockup import AgentDescriptionPDDL
 from agents.agent_strategy_gen import AgentStrategyGen
 from agents.agent_strategy_gen_w_debugging_prev_hist import AgentStrategyGenDebuggingPlanGenHist
 from agents.agent_strategy_val_planbased import AgentStrategyValidatePlanBased
@@ -114,12 +113,11 @@ def run_pipeline(seed_value: int,
             prompt_task_dict=prompt_task_dict,
             validation_task_dict=intermediate_validation_task_dict,
             flags_dict=flags_dict,
-            benchmark_dir=benchmark_dir,
             llm_gen_dir=llm_gen_dir,
             res_dir=res_out_dir
         )
     else:
-        raise ValueError
+        raise NotImplementedError
 
     # add all prompt tasks to the validation tasks
     validation_task_dict = dict()
@@ -272,7 +270,7 @@ def run_code_generation(ag_code_gen_conf: dict,
                         res_dir: Path,
                         llm_gen_dir: Path) -> AgentCodeGenerationBasic:
 
-    print('--- Running pseudocode and code generation with debugging ---')
+    print('--- Running code generation with debugging ---')
     # call AgentCodeGeneration
     agent_param = create_agent_codegen(agent_config=ag_code_gen_conf,
                                        debug_task_names=debug_tasks_names,
@@ -361,11 +359,9 @@ def run_original_pipeline(agent_configs: dict,
                           prompt_task_dict: dict[str, TaskData],
                           validation_task_dict: dict[str, TaskData],
                           flags_dict: dict,
-                          benchmark_dir: Path,
                           llm_gen_dir: Path,
                           res_dir: Path):
 
-    print('--- Generating First Strategy ---')
     # call AgentStrategyGen
     ag_strat_gen_conf = agent_configs['strategy_generation']
     agent_param = create_agent_strategy_gen(agent_config=ag_strat_gen_conf,
@@ -385,7 +381,6 @@ def run_check_strat_pipeline(agent_configs: dict,
                              prompt_task_dict: dict[str, TaskData],
                              validation_task_dict: dict[str, TaskData],
                              flags_dict: dict,
-                             benchmark_dir: Path,
                              llm_gen_dir: Path,
                              res_dir: Path) -> Union[None, float]:
 
@@ -400,7 +395,6 @@ def run_check_strat_pipeline(agent_configs: dict,
                               prompt_task_dict=prompt_task_dict,
                               validation_task_dict=validation_task_dict,
                               flags_dict=flags_dict,
-                              benchmark_dir=benchmark_dir,
                               llm_gen_dir=llm_gen_dir,
                               res_dir=res_dir)
 

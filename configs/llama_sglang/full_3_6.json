@@ -87,8 +87,6 @@
       "llm_conf_name": "default",
       "system_prompt": "agent_code_gen/system_prompt.txt",
       "args": {
-        "pseudocode_prompt_file": null,
-        "refine_pseudocode_prompt_file": null,
         "code_gen_prompt_file": "agent_code_gen/code_prompt.txt",
         "reflection_prompt_file": "agent_code_gen/reflection_code_prompt.txt",
         "refine_code_prompt_file": "agent_code_gen/refine_code_prompt.txt",
@@ -97,7 +95,7 @@
         "force_examples": true,
         "include_plans": true,
         "include_nl": false,
-        "max_debug_steps": 5,
+        "max_debug_steps": 6,
         "number_of_examples": 1,
         "number_parallel_codes": 3
       }

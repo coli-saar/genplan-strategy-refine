@@ -47,12 +47,12 @@ To generate additional sh_scripts run: `python create_sh_scripts.py -d [dataset]
 This will generate a file in the sh_dir directory with the commands for running the pipeline with all configuration files in the config_dir. 
 
 **Configuration Files**<br>
-
-- baseline.json: our baseline
+Baseline
+- baseline.json: our baseline 
 
 Full framework:
 - full_3_6.json: F3-6
-- full_5_3.json: F5-4
+- full_5_3.json: F5-3
 - 
 Ablations
 - full_no_code_sr.json: no self-reflection during code debugging

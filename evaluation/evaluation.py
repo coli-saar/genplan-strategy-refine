@@ -106,7 +106,7 @@ def run_evaluation(eval_tasks: List[Task],
     eval_metrics['accuracy'] = round(num_successes / num_eval, 3)
     eval_metrics['solved_tasks'] = solved_tasks
     eval_metrics['not_solved_tasks'] = not_solved_tasks
-    print(eval_metrics)
+
     return eval_metrics
 
 

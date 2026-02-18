@@ -15,10 +15,8 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
                  llm_model: LLMModel,
                  validation_task_dict: Dict[str, TaskData],
                  debug_task_names: List[str],
-                 pseudocode_prompt_file: Union[str, None],
                  code_gen_prompt_file: str,
                  reflection_prompt_file: str,
-                 refine_pseudocode_prompt_file: Union[str, None],
                  refine_code_prompt_file: str,
                  validator_param: dict,
                  number_parallel_codes: int,
@@ -40,10 +38,8 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
 
         :param llm_model:
         :param validation_task_dict:
-        :param pseudocode_prompt_file:
         :param code_gen_prompt_file:
         :param reflection_prompt_file:
-        :param refine_pseudocode_prompt_file:
         :param refine_code_prompt_file:
         :param validator_param:
         :param log_dir:
@@ -60,11 +56,9 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
         super().__init__(llm_model=llm_model,
                          validation_task_dict=validation_task_dict,
                          debug_task_names=debug_task_names,
-                         pseudocode_prompt_file=pseudocode_prompt_file,
                          code_gen_prompt_file=code_gen_prompt_file,
                          reflection_prompt_file=reflection_prompt_file,
                          refine_code_prompt_file=refine_code_prompt_file,
-                         refine_pseudocode_prompt_file=refine_pseudocode_prompt_file,
                          validator_param=validator_param,
                          log_dir=log_dir,
                          flags=flags,
@@ -136,6 +130,8 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
             if self.last_validator_debug.plan_succeeded_all:
                 break
 
+            counter += 1
+
             # reset all variables for the next round
             self.reset_for_next_run()
 
@@ -189,30 +185,13 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
 
     def generate_code(self) -> str:
 
-        # If pseudocode gets generated, then main information is in the pseudocode prompt
-        # therefore, not parameters are needed for the code prompt
-        if self.pseudocode_prompt_template:
-            prompt = self.code_gen_prompt_template.render()
-
-        # Otherwise, the main parameters are needed
-        else:
-            prompt = self.next_prompts.pop(0)
+        prompt = self.next_prompts.pop(0)
 
         response, _ = self.llm_model.generate(user_message=prompt)
         self.log_llm_input_output(code=True)
         response = postprocess_response(model_response=response)
 
         self.last_code = response
-
-        return response
-
-    def generate_pseudo_code(self) -> str:
-
-        prompt = self.next_prompts.pop(0)
-        response, _ = self.llm_model.generate(user_message=prompt)
-        self.log_llm_input_output()
-
-        self.last_pseudocode = response
 
         return response
 
@@ -238,16 +217,8 @@ class AgentCodeGenerationMultiple(AgentCodeGeneration):
             if no_change == 30:
                 break
 
-        # If pseudocode gets generated, then main information is in the pseudocode prompt
-        # therefore, not parameters are needed for the code prompt
-        # Otherwise, the main parameters are needed
-
         for prompt_param in all_prompt_params:
-            if self.pseudocode_prompt_template:
-                prompt = self.pseudocode_prompt_template.render(**prompt_param)
-            else:
-                prompt = self.code_gen_prompt_template.render(**prompt_param)
-
+            prompt = self.code_gen_prompt_template.render(**prompt_param)
             self.next_prompts.append(prompt)
 
 

@@ -89,7 +89,7 @@
         "force_examples": true,
         "include_plans": true,
         "include_nl": false,
-        "max_debug_steps": 5,
+        "max_debug_steps": 6,
         "number_of_examples": 1,
         "number_parallel_codes": 3
       }

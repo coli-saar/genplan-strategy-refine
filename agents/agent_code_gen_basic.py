@@ -194,7 +194,7 @@ class AgentCodeGenerationBasic:
     def _run_debugging_loop(self):
 
         # Run debugging loop
-        while self.debug_attempt <= self.max_debug_steps:
+        while self.debug_attempt < self.max_debug_steps:
             self.debug_attempt += 1
             self.required_debug_steps += 1
             self.step_last_validator += 1

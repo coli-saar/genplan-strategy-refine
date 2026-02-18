@@ -6,11 +6,11 @@ from pathlib import Path, PosixPath
 from collections import defaultdict
 from argparse import Namespace
 from utils.tasks import Task
-from utils.paths import get_benchmark_dir, get_llm_gen_dir
-from utils.helper import convert_path2str, run_symbolic_planner
+from utils.helper import convert_path2str
+from utils.paths import get_benchmark_dir
 from agents.agent_code_gen import postprocess_response
 from evaluation.evaluation import run_evaluation
-from evaluation.evaluation_pipeline import create_llm_generated_eval_tasks, create_eval_tasks, create_val_tasks
+from agentic_genplan.create_tasks import create_tasks_split
 
 
 def run_evaluation_data_split_all_codes(output_dir_exp,
@@ -288,16 +288,11 @@ def run_all_evaluations_all_codes_json(benchmark_name: str,
     eval_tasks_per_split = dict()
     for eval_name in eval_split_names:
 
-        if eval_name == 'llm_generated':
-            tasks = create_llm_generated_eval_tasks(benchmark_name=benchmark_name,
-                                                    domain_name=domain_name,
-                                                    output_dir=experiments_output_folder)
-        else:
-            tasks = create_eval_tasks(benchmark_name=eval_benchmark_name,
-                                      domain_name=eval_domain_name,
-                                      eval_split_file=eval_split_file,
-                                      eval_split_name=eval_name,
-                                      input_version=input_version)
+        tasks = create_eval_tasks(benchmark_name=eval_benchmark_name,
+                                  domain_name=eval_domain_name,
+                                  eval_split_file=eval_split_file,
+                                  eval_split_name=eval_name,
+                                  input_version=input_version)
         eval_tasks_per_split[eval_name] = tasks
 
     validation_tasks = create_val_tasks(benchmark_name=benchmark_name,
@@ -341,4 +336,59 @@ def run_all_evaluations_all_codes_json(benchmark_name: str,
                     output_file_path = os.path.join(seed_res_path, output_file)
                 with open(output_file_path, 'w') as f:
                     json.dump(results_all_eval_splits, f, indent=2)
+
+
+def create_eval_tasks(benchmark_name: str,
+                      domain_name: str,
+                      eval_split_file: str,
+                      eval_split_name: str,
+                      input_version) -> List[Task]:
+    benchmark_dir = get_benchmark_dir(benchmark_name=benchmark_name,
+                                      domain_name=domain_name)
+    domain_file_path = benchmark_dir / 'domain.pddl'
+    seed_split_path = benchmark_dir / eval_split_file
+
+    with open(seed_split_path, 'r', encoding='utf-8') as f:
+        seed_split_maps = json.load(f)
+    eval_instances = seed_split_maps[eval_split_name]
+
+    if input_version == 'pddl':
+        instance_dir = benchmark_dir / 'problems_pddl'
+    else:
+        instance_dir = benchmark_dir / 'problems_pddl_nl_objs'
+    eval_tasks = create_tasks_split(instance_dir=instance_dir,
+                                    instance_names=eval_instances,
+                                    domain_file_path=domain_file_path)
+
+    return eval_tasks
+
+
+def create_val_tasks(benchmark_name: str,
+                     domain_name: str,
+                     val_split_file: str,
+                     val_split_name: str,
+                     input_version) -> List[Task]:
+    benchmark_dir = get_benchmark_dir(benchmark_name=benchmark_name,
+                                      domain_name=domain_name)
+    domain_file_path = benchmark_dir / 'domain.pddl'
+    seed_split_path = benchmark_dir / val_split_file
+
+    with open(seed_split_path, 'r', encoding='utf-8') as f:
+        seed_split_maps = json.load(f)
+    seed_split_data = seed_split_maps[val_split_name]
+
+    val_instances_names = []
+    val_instances_names.extend(seed_split_data['prompt'])
+    val_instances_names.extend(seed_split_data['validate'])
+
+    if input_version == 'pddl':
+        instance_dir = benchmark_dir / 'problems_pddl'
+    else:
+        instance_dir = benchmark_dir / 'problems_pddl_nl_objs'
+
+    val_tasks = create_tasks_split(instance_dir=instance_dir,
+                                   instance_names=val_instances_names,
+                                   domain_file_path=domain_file_path)
+
+    return val_tasks
 

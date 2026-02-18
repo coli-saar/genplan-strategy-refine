@@ -20,10 +20,8 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
                  llm_model: LLMModel,
                  validation_task_dict: Dict[str, TaskData],
                  debug_task_names: List[str],
-                 pseudocode_prompt_file: Union[str, None],
                  code_gen_prompt_file: str,
                  reflection_prompt_file: str,
-                 refine_pseudocode_prompt_file: Union[str, None],
                  refine_code_prompt_file: str,
                  validator_param: dict,
                  log_dir: Path,
@@ -43,10 +41,8 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
 
         :param llm_model:
         :param validation_task_dict:
-        :param pseudocode_prompt_file:
         :param code_gen_prompt_file:
         :param reflection_prompt_file:
-        :param refine_pseudocode_prompt_file:
         :param refine_code_prompt_file:
         :param validator_param:
         :param log_dir:
@@ -81,9 +77,6 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
 
         self.debugs_pseudocode = 0
 
-        self.pseudocode_prompt_template = create_prompt_template(pseudocode_prompt_file, self.flags) if pseudocode_prompt_file else None
-        self.refine_pseudocode_prompt_template = create_prompt_template(refine_pseudocode_prompt_file, self.flags) if refine_pseudocode_prompt_file else None
-
         self.reflection_prompt_template = create_prompt_template(reflection_prompt_file, self.flags)
 
         if plan_based_val_args:
@@ -93,18 +86,7 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
         else:
             self.agent_planbased_val = None
 
-
     def _generate_first_code(self):
-
-        if self.pseudocode_prompt_template:
-            # Generate the pseudocode
-            pseudo_code_response = self.generate_pseudo_code()
-
-            # Get estimate of quality of strategy, i.e. pseudocode
-            if self.agent_planbased_val is not None:
-                self.agent_planbased_val.agent_plan_gen.update_pseudo_code(pseudo_code=pseudo_code_response)
-                self.agent_planbased_val.assess_strategy_quality()
-                self.agent_planbased_val.save_validation_results()
 
         # Generate code
         code_response = self.generate_code()
@@ -116,7 +98,7 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
     def _run_debugging_loop(self):
 
         # Run debugging loop
-        while self.debug_attempt <= self.max_debug_steps:
+        while self.debug_attempt < self.max_debug_steps:
             self.debug_attempt += 1
             self.required_debug_steps += 1
             self.step_last_validator += 1
@@ -125,91 +107,20 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
             pseudo_code_wrong = None
             reflection_response = self.run_self_reflection()
 
-            # if only self-reflection + correction for code but not for pseudocode
-            if self.refine_pseudocode_prompt_template is None:
-                pseudo_code_wrong = False
-            # if LLM decides that pseudocode is wrong
-            elif 'the pseudocode needs to be revised' in reflection_response.lower():
-                pseudo_code_wrong = True
-            # if LLM decides that code is wrong
-            elif 'the python code needs to be revised' in reflection_response.lower():
-                pseudo_code_wrong = False
-            # if LLM does not reply with an output that can be parsed
-            else:
-                counter = 0
-                while pseudo_code_wrong is None:
-                    if counter >= 5:
-                        raise ValueError('LLM is not stating whether code or pseudocode needs to be refined; check outputs')
-                    re_prompt = 'Please tell me explicitly what needs to be revised. Answer only with one single word. "pseudocode" for revising the pseudocode or "code" for revising the python code'
-                    new_response, _ = self.llm_model.generate(user_message=re_prompt)
-                    new_response = new_response.strip().lower()
-                    self.log_llm_input_output()
-                    if new_response == 'pseudocode':
-                        pseudo_code_wrong = True
-                    elif new_response == 'code':
-                        pseudo_code_wrong = False
-                    counter += 1
+            # fix the code and try again
+            refined_code = self.refine_code()
 
-            # If place for fixing error is in strategy: fix the pseudocode and try again
-            if pseudo_code_wrong:
-                self.refine_pseudo_code()
-
-                # Update the history
-                current_history = self.llm_model.get_history()
-                len_initial_hist = len(self.llm_model.get_initial_history())
-                # We want to keep
-                # 1) the initial history,
-                # 2) the first prompt for generating the pseudocode,
-                # 3) then newly generated pseudocode
-                new_history = current_history[:len_initial_hist + 1]
-                new_history.append(current_history[-1])
-
-                self.llm_model.update_history(new_history=new_history)
-
-                # Generate code
-                code_response = self.generate_code()
-
-                # Pass the code to the validator and
-                # validate on all debugging and validation tasks
-                self.run_and_update_validators(code_to_validate=code_response)
-
-            # If place for fixing is the code itself: fix the code and try again
-            else:
-                # TODO: option to reduce the history
-
-
-                refined_code = self.refine_code()
-
-                # Pass the code to the validator and
-                # validate on all debugging and validation tasks
-                self.run_and_update_validators(code_to_validate=refined_code)
+            # Pass the code to the validator and
+            # validate on all debugging and validation tasks
+            self.run_and_update_validators(code_to_validate=refined_code)
 
             if self.last_validator_debug.plan_succeeded_all:
                 return
 
-    def generate_pseudo_code(self) -> str:
-
-        prompt_param = self.get_param_main_prompt()
-
-        prompt = self.pseudocode_prompt_template.render(**prompt_param)
-        response, _ = self.llm_model.generate(user_message=prompt)
-        self.log_llm_input_output()
-
-        self.last_pseudocode = response
-
-        return response
-
     def generate_code(self) -> str:
 
-        # If pseudocode gets generated, then main information is in the pseudocode prompt
-        # therefore, not parameters are needed for the code prompt
-        if self.pseudocode_prompt_template:
-            prompt = self.code_gen_prompt_template.render()
-
-        # Otherwise, the main parameters are needed
-        else:
-            prompt_param = self.get_param_main_prompt()
-            prompt = self.code_gen_prompt_template.render(**prompt_param)
+        prompt_param = self.get_param_main_prompt()
+        prompt = self.code_gen_prompt_template.render(**prompt_param)
 
         response, _ = self.llm_model.generate(user_message=prompt)
         self.log_llm_input_output(code=True)
@@ -232,18 +143,6 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
         self.log_llm_input_output()
         return response
 
-    def refine_pseudo_code(self) -> str:
-
-        self.debugs_pseudocode += 1
-
-        prompt = self.refine_pseudocode_prompt_template.render()
-        response, _ = self.llm_model.generate(user_message=prompt)
-        self.log_llm_input_output()
-
-        self.last_pseudocode = response
-
-        return response
-
     def refine_code(self) -> str:
 
         self.debugs_code += 1
@@ -260,24 +159,3 @@ class AgentCodeGeneration(AgentCodeGenerationBasic):
             self.shorten_debug_hist()
 
         return response
-
-    def shorten_debug_hist(self):
-
-        current_history = self.llm_model.get_history()
-        len_initial_hist = len(self.llm_model.get_initial_history())
-
-        if self.pseudocode_prompt_template is None:
-            assert len(current_history) == 7
-            new_history = current_history[:len_initial_hist + 1]
-        else:
-            assert len(current_history) == 9
-            new_history = current_history[:len_initial_hist + 3]
-
-        last_code = self.last_code
-        last_code_formatted = f'```python\n{last_code}\n```'
-
-        # TODO: decide
-        new_history.append({'role': 'assistant', 'content': last_code_formatted})
-        #new_history.append(current_history[-1])
-
-        self.llm_model.update_history(new_history=new_history)
