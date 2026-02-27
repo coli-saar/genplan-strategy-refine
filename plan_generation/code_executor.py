@@ -8,7 +8,7 @@ import multiprocessing as mp
 from typing import Tuple, Union
 
 from agents.gen_plan_execution import make_vars_accessible, GeneralizedPlan
-from utils.tasks import Task
+from utils.tasks import Task, TaskSimple
 from utils.metrics import initialize_task_metrics
 from utils.helper import VariableContainer
 from feedback_generators.code_feedback_generator import CodeFeedbackGenerator
@@ -35,16 +35,16 @@ class CodeExecutor:
 
         self.result_dict = dict()
 
-    def update_task(self, task: Task):
+    def update_task(self, task: Union[Task, TaskSimple]):
         self.task = task
         domain_file_path, instance_file_path = self.task.get_file_paths()
         self.result_dict = dict()
 
     def run_genplan_on_task(self,
-                            task: Task,
+                            task: Union[Task, TaskSimple],
                             objects: Union[set, None] = None,
                             init_state: Union[set, None] = None,
-                            goal_state: Union[set, None] = None) -> Tuple[bool, str, dict]:
+                            goal_state: Union[set, None] = None) -> dict:
 
         self.update_task(task=task)
         assert self.task is not None
@@ -86,6 +86,8 @@ class CodeExecutor:
                 p.join(3)
                 p.kill()
                 self.result_dict["timeout_reached"] = True
+
+        duration = time.perf_counter() - start_time
 
         if self.timed_out:
             assert self.timeout is not None and duration > self.timeout

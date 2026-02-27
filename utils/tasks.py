@@ -571,6 +571,26 @@ class TaskSimple:
         """Crude estimate of task size."""
         return len(self.objects) + len(self.init) + len(self.goal)
 
+    def action_has_valid_syntax(self, action: Any) -> bool:
+        """Check if the action name and arity is correct and objects exist."""
+        if not isinstance(action, str):
+            return False
+        if not (action.startswith("(") and action.endswith(")")):
+            return False
+        action = action[1:-1].strip()
+        if " " not in action:
+            name = action
+            arg_names = []
+        else:
+            name, remainder = action.split(" ", 1)
+            arg_names = remainder.split(" ")
+        if name not in self.problem.actions.keys():
+            return False
+        if len(arg_names) != len(self.problem.actions[name].parameters):
+            return False
+
+        return True
+
 
 def update_domain_strategy(task_dict: Dict[str, TaskData],
                            summarized_strategy: str):
